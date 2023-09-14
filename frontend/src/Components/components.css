@@ -1,0 +1,96 @@
+*{
+    ::selection {
+        background-color: transparent; /* Sets the highlight color to yellow */
+    }
+}
+.bg-blue, #drop{
+    background-color: var(--dark-blue);
+}
+#logo-front{
+    z-index: 2;
+    left: 0;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+    #logo-front:hover{
+        opacity: 1;
+    }
+    #lnk:hover {
+        background-color: #ffffff30;
+    }
+    .itm:hover{
+        color: var(--yellow)
+    }
+.ic {
+    transition: stroke 0.3s ease-in-out; /* Add a transition for the stroke color */
+    stroke: var(--white); /* Initial color */
+    color: var(--white);
+}
+    .ic:hover{
+        stroke: var(--yellow);
+        color: var(--yellow);
+        cursor: pointer;
+    }
+.footer{
+    background-color: var(--dark-blue);
+}
+.itm-card {
+    transition: all 0.3s ease-in-out;
+    transform: scale(0.9);
+}
+.bg-pic{
+    background-color: #928A80;
+    transition: all 0.3s ease-in-out;
+}
+    .bg-pic:hover{
+        background-color: #343434;
+    }
+.img-back{
+    z-index: 2;
+    left: 0;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+    .itm-card:hover{
+        transform: scale(1);
+        box-shadow: 4px 0 10px 2px #00000070;
+        & .img-back{
+            opacity: 1;
+        }
+    }
+.cart-btn{
+    background-color: transparent;
+    border: 1px solid var(--dark-blue);
+    color: var(--dark-blue);
+    transition: all 0.3s ease-in-out;
+    outline: 1px solid transparent;
+    border-radius: 5px;
+}
+    .cart-btn:hover{
+        background-color: var(--dark-blue);
+        border: 1px solid var(--dark-blue);
+        border-radius: 30px;
+        outline-offset: -5px;
+        outline-color: var(--white);
+        color: var(--white);
+    }
+
+.modal-overlay {
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.651);
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.inpt, .inpt:focus{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+.bg-select{
+    background-color: var(--dark-blue);
+}
