@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import logo from 'Assets/images/image_61.png'
 import { Link } from 'react-router-dom'
 import { handleActiveItem, iconPath } from 'Utils/handlingFunction'
-import { IconPark } from 'Assets/SVG'
+import { IconPark, ComboChart } from 'Assets/SvgIcons'
 
 const Navigation = () => {
   const [item, setItem] = useState('dashboard');
@@ -14,32 +14,7 @@ const Navigation = () => {
                 <ul className='list-unstyled d-flex flex-column gap-1'>
                     <li className='list-itm px-2 py-2 rounded-2' onClick={() => handleActiveItem('dashboard', setItem)}>
                         <Link to='dashboard' className='gap-2 text-decoration-none d-flex align-items-center fw-medium'>
-                          <IconPark path={iconPath(item, 'dashboard', 'bxs:dashboard', 'humbleicons:dashboard')} size={30} /> Dashboard
-                        </Link>
-                    </li>
-                    <li className='list-itm px-2 py-2 rounded-2' onClick={() => handleActiveItem('customer', setItem)}>
-                        <Link to='customer-management' className='gap-2 text-decoration-none d-flex align-items-center fw-medium'>
-                          <IconPark icon={iconPath(item, 'logistic', mdiTruckDelivery, mdiTruckDeliveryOutline)} size={'32px'} color='#003E81'/> Customers
-                        </Link>
-                    </li>
-                    <li className='list-itm px-2 py-2 rounded-2' onClick={() => handleActiveItem('pos', setItem)}>
-                        <Link to='point-of-sales'  className='gap-2 text-decoration-none d-flex align-items-center fw-medium'>
-                          <IconPark icon={iconPath(item, 'pos', mdiPrinterPos, mdiPrinterPosOutline)} size={'32px'} color='#003E81' /> Point of Sales
-                        </Link>
-                    </li>
-                    <li className='list-itm px-2 py-2 rounded-2' onClick={() => handleActiveItem('order', setItem)}>
-                        <Link to='order-mgmt' className='gap-2 text-decoration-none d-flex align-items-center fw-medium'>
-                          <IconPark icon={iconPath(item, 'logistic', mdiTruckDelivery, mdiTruckDeliveryOutline)} size={'32px'} color='#003E81'/> Orders
-                        </Link>
-                    </li>
-                    <li className='list-itm px-2 py-2 rounded-2' onClick={() => handleActiveItem('sale', setItem)}>
-                        <Link to='sales-mgmt' className='gap-2 text-decoration-none d-flex align-items-center fw-medium'>
-                          <IconPark icon={iconPath(item, 'logistic', mdiTruckDelivery, mdiTruckDeliveryOutline)} size={'32px'} color='#003E81'/> Sales
-                        </Link>
-                    </li>
-                    <li className='list-itm px-2 py-2 rounded-2' onClick={() => handleActiveItem('logistic', setItem)}>
-                        <Link to='logistic' className='gap-2 text-decoration-none d-flex align-items-center fw-medium'>
-                            <IconPark icon={iconPath(item, 'logistic', mdiTruckDelivery, mdiTruckDeliveryOutline)} size={'32px'} color='#003E81'/> Logistics
+                          <ComboChart /> Dashboard
                         </Link>
                     </li>
                 </ul>
@@ -48,10 +23,10 @@ const Navigation = () => {
               <div className='w-50 pe-5 d-flex justify-content-end align-items-center gap-3'>
                 <div className='d-flex gap-3'>
                   <a href='/' className='itm'>
-                    <BiSolidMessage size={22}/>
+                    {/* <BiSolidMessage size={22}/> */}
                   </a>
                   <a href='/' className='itm'>
-                    <BsBellFill size={22}/>
+                    {/* <BsBellFill size={22}/> */}
                   </a>
                 </div>
               </div>
