@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import logo from 'Assets/images/image_61.png'
 import { Link } from 'react-router-dom'
 import { handleActiveItem, iconPath } from 'Utils/handlingFunction'
-import { IconPark } from '../Assets/Svg'
+import { IconPark } from 'Assets/SVG'
 
 const Navigation = () => {
   const [item, setItem] = useState('dashboard');
