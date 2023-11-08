@@ -17,7 +17,10 @@
   --bright-black: #121317;
   --light-black: #1A1C23;
   --gray: #64646480;
+  --dark-blue: #1A3B53;
   --secondary-text: #B7B7B7;
+  --blue: #0094ff;
+  --neutral: #999;
   --type-face: 'Inter', sans-serif;
 }
 body{

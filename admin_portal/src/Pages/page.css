@@ -1,0 +1,30 @@
+#dash, #customer, #meter, #point-of-sales, #sales, #order, #logistic, #booking, #inventory, #customerprofile{
+    padding: 0;
+    padding-top: 40px;
+    padding-left: 160px;
+    background-color: var(--bright-black);
+}
+.header, .page-header{
+    color: var(--white);
+    font-stretch: condensed;
+    font-weight: 600;
+    font-size: 12px;
+}
+.statistic-container{
+    grid-template-columns: 1fr 2fr;
+    grid-column-gap: 20px;
+}
+.statistic{
+    background-color: var(--light-black);
+}
+.btn-list{
+    outline: none;
+    border:none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 12px;
+    transition: all 0.4s ease;
+}
+.btn-list.active{
+    background-color: var(--dark-blue);
+}
