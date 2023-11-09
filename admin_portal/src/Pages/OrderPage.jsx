@@ -1,8 +1,47 @@
 import React from 'react'
+import {IconPark} from 'Assets/SvgIcons'
+import {iconPath} from 'Utils/handlingFunction'
+import {Table} from 'Components'
+import {orderHistory} from 'Utils/initialData'
 
 const OrderPage = () => {
+  const headers = ['Invoice ID', 'Date', 'User ID', 'User Name', 'Total Items', 'Total Amount', 'Status', 'Action', 'Invoice']
+  const subHeaders = ['Item Code', 'Item Description', 'Inventory Class', 'Quantity', 'Selling Price', 'Sub Total']
+
   return (
-    <div>OrderPage</div>
+    <main id='order' className='container-fluid '>
+      <div className='px-3 pt-3'>
+        <h2 className='py-2 m-0 page-header'>Orders List</h2>
+        <p className='m-0' style={{fontSize: '11px', color: 'gray'}}>Manage your Order Report</p>
+      </div>
+      <section className="container-fluid p-3">
+        <div className="rounded-3 d-flex align-items-end gap-3 statistic p-3">
+          <div className="d-flex w-50 flex-column">
+            <label htmlFor="search">Search by User ID</label>
+            <input type="text" className="p-2 w-100 rounded-2" id="search" placeholder="Search by User ID" name="search" required />
+          </div>
+
+          <div className="dropdown w-50">
+            <button className="btn w-100 py-2 btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Status
+            </button>
+            <ul className="dropdown-menu">
+              <li><p className="dropdown-item" >Received</p></li>
+              <li><p className="dropdown-item" >Processing</p></li>
+              <li><p className="dropdown-item" >Pending</p></li>
+              <li><p className="dropdown-item" >Canceled</p></li>
+            </ul>
+          </div>
+
+          <button className='btn btn-primary btn-sm py-2 w-50'><IconPark path={iconPath('', 'messages', 'bytesize:download', 'bytesize:download')} size={20} /> Download all orders received</button>
+        </div>
+      </section>
+      <section className="container-fluid p-3">
+        <section className='p-3 rounded-3 statistic'>
+          <Table data={orderHistory} headers={headers} height={'460px'} subHeader={subHeaders} />
+        </section>
+      </section>
+    </main>
   )
 }
 

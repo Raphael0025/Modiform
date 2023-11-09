@@ -1,4 +1,4 @@
-#dash, #customer, #meter, #point-of-sales, #sales, #order, #logistic, #booking, #inventory, #customerprofile{
+#dash, #customer, #new-item, #order, #inventory, #product{
     padding: 0;
     padding-top: 40px;
     padding-left: 160px;
@@ -10,12 +10,19 @@
     font-weight: 600;
     font-size: 12px;
 }
+.page-header{
+    font-size: 16px;
+}
 .statistic-container{
     grid-template-columns: 1fr 2fr;
     grid-column-gap: 20px;
 }
 .statistic{
     background-color: var(--light-black);
+}
+.statistic-2{
+    background-color: var(--stat);
+    border: 2px solid var(--dark-blue);
 }
 .btn-list{
     outline: none;
@@ -27,4 +34,14 @@
 }
 .btn-list.active{
     background-color: var(--dark-blue);
+}
+.overview-container{
+    grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+}
+.grid-container{
+    grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
 }

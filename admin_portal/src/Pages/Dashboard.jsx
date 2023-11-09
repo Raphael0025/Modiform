@@ -4,6 +4,7 @@ import { doughnutData, orderHistory } from 'Utils/initialData'
 
 const Dashboard = () => {
     const [defaultBtn, setDefault] = useState('today')
+    
     const caption = ['Revenue', 'Orders Received', 'Total Users']
     const sample = [6000, 200, 340]
     const icons = ['tabler:currency-peso', 'mdi:cart-check', 'fluent:people-team-28-regular']
@@ -14,7 +15,7 @@ const Dashboard = () => {
 
     return (
         <main id='dash' className='container-fluid '>
-            <section className='container-fluid px-3 py-2 d-grid overview-container'>
+            <section className='container-fluid px-3 py-2'>
                 <div className='d-flex justify-content-start py-2'>
                     <div className='d-flex rounded-2' style={{border: '1px solid var(--dark-blue)'}}>
                         <button className={`${defaultBtn === 'today' ? 'active' : ''} rounded-1 py-2 px-3 text-light btn-list`} onClick={() => setDefault('today')}>Today</button>

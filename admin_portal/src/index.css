@@ -22,6 +22,7 @@
   --blue: #0094ff;
   --neutral: #999;
   --type-face: 'Inter', sans-serif;
+  --stat: #2E3039;
 }
 body{
   height: 100vh;
