@@ -42,7 +42,7 @@ const Dashboard = () => {
             <section className='px-3 py-2 w-100'>
                 <div className='statistic rounded-3 p-3'>
                     <h4 className='header'>Recent Invoices</h4>
-                    <Table headers={headers} subHeader={subHeaders}  data={orderHistory} />
+                    <Table headers={headers} subHeader={subHeaders} data={orderHistory} />
                 </div>
             </section>
         </main>
