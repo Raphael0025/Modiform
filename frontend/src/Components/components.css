@@ -94,3 +94,20 @@
 .bg-select{
     background-color: var(--dark-blue);
 }
+
+@keyframes scaleAnimation {
+    0% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(0); /* Scales down to 80% */
+    }
+    100% {
+        transform: scale(0.9); /* Scales back up to 100% */
+    }
+}
+
+.category-change{
+    animation: scaleAnimation 0.5s ease-in-out; /* Adjust the duration and timing function as needed */
+}
+

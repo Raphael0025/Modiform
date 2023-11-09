@@ -17,25 +17,25 @@ const InventoryPage = () => {
         <section className='rounded-3 d-grid align-items-center grid-container statistic p-3'>
           <div className="dropdown statistic">
             <button className="statistic-2 text-light w-100 py-2 rounded-3 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Status
+              Inventory Class
             </button>
             <ul className="dropdown-menu">
-              <li><p className="dropdown-item" >Received</p></li>
-              <li><p className="dropdown-item" >Processing</p></li>
-              <li><p className="dropdown-item" >Pending</p></li>
-              <li><p className="dropdown-item" >Canceled</p></li>
+              <li><p className="dropdown-item" >All</p></li>
+              <li><p className="dropdown-item" >Uniform</p></li>
+              <li><p className="dropdown-item" >Others</p></li>
             </ul>
           </div>
 
           <div className="dropdown statistic">
             <button className="statistic-2 text-light w-100 py-2 rounded-3 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Status
+              Category
             </button>
             <ul className="dropdown-menu">
-              <li><p className="dropdown-item" >Received</p></li>
-              <li><p className="dropdown-item" >Processing</p></li>
-              <li><p className="dropdown-item" >Pending</p></li>
-              <li><p className="dropdown-item" >Canceled</p></li>
+              <li><p className="dropdown-item" >All</p></li>
+              <li><p className="dropdown-item" >Faculty</p></li>
+              <li><p className="dropdown-item" >College</p></li>
+              <li><p className="dropdown-item" >Senior High</p></li>
+              <li><p className="dropdown-item" >Junior High</p></li>
             </ul>
           </div>
           <button className='btn py-2 btn-sm text-light' style={{backgroundColor: 'var(--dark-blue)'}}>Update Item Stock <IconPark path={iconPath('', 'messages', 'ic:twotone-browser-updated', 'ic:twotone-browser-updated')} size={20} /></button>
@@ -53,9 +53,9 @@ const InventoryPage = () => {
           <div className="d-flex gap-3 statistic-2 p-3 rounded-2 align-items-center">
             <p className='m-0'>Quantity</p>
             <div className='d-flex gap-3'>
-              <button className='btn btn-outline-light'>+</button>
-              <input type="number" className="p-2 w-100 rounded-2" required />
               <button className='btn btn-outline-light'>-</button>
+              <input type="number" className="p-2 w-100 rounded-2" required />
+              <button className='btn btn-outline-light'>+</button>
             </div>
           </div>
         </section>

@@ -81,9 +81,7 @@ const AddToCartModal = () => {
                                         </ul>
                                     </div>
                                 </div>
-                                <button className='py-2 px-4 cart-btn'>
-                                    Add to Cart
-                                </button>
+                                <button className='py-2 px-4 cart-btn'> Add to Cart </button>
                             </div>
                         </div>
                     </div>
