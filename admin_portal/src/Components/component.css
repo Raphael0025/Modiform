@@ -42,3 +42,11 @@
     font-weight: 600;
     font-size: 13px;
 }
+.itm-list{
+    background-color: #2E3039;
+    color: var(--white);
+    transition: all 0.5s ease;
+}
+    .itm-list:hover{
+        background-color: var(--blue);
+    }

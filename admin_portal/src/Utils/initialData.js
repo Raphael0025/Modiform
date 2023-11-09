@@ -345,4 +345,170 @@ export const orderHistory = [{
         "unit_price": 2057,
         "sub_total": 152
       }]
-  }]
+}]
+
+export const user = [
+  {
+      user_id: "fcbc4f1f-9259-4b21-8b76-66c4becd6c02",
+      user_name: "Hal Ellcock"
+  },
+  {
+      user_id: "2ddc3a4a-180c-4641-9273-90a79aebbee7",
+      user_name: "Rivalee Lages"
+  },
+  {
+      user_id: "0e25879d-1203-4b14-b525-1fa052a82eac",
+      user_name: "Sascha Coster"
+  },
+  {
+      user_id: "fbf271d4-128c-4f11-8490-9417b243aa87",
+      user_name: "Lucretia Waplinton"
+  },
+  {
+      user_id: "baa2d3e5-4a4c-4c84-815c-52894a990b81",
+      user_name: "Bancroft Yeiles"
+  },
+  {
+      user_id: "1ad1ee57-3bc2-4303-bd54-9addaba10dc7",
+      user_name: "Bailie Gawkes"
+  },
+  {
+      user_id: "376f33d4-1d5e-4cb9-8634-5db9188ae782",
+      user_name: "Augusta Langrick"
+  },
+  {
+      user_id: "168a394f-7c50-47b5-a75e-661ae7da2a84",
+      user_name: "Johnath Brack"
+  },
+  {
+      user_id: "603293b1-58e6-4ed0-8732-a1cc56bf8f38",
+      user_name: "Tabb Thorald"
+  },
+  {
+      user_id: "64009eb3-ebc9-4499-8525-b6cad6baf857",
+      user_name: "Ruthe Mumbray"
+  },
+  {
+      user_id: "6d50cbd2-bc40-4d8b-89c9-6e109ab38c4b",
+      user_name: "Burton Pask"
+  },
+  {
+      user_id: "7cd2d9e3-5725-4493-b618-a7be15f3cd74",
+      user_name: "Boyd Muncaster"
+  },
+  {
+      user_id: "a4c601ff-767c-4f52-b662-8f9f5e00499e",
+      user_name: "Sydney Harbour"
+  },
+  {
+      user_id: "0c56791f-0678-4e99-ba71-4d9bcbde81a4",
+      user_name: "Sheff Guy"
+  }
+]
+
+export const inventory = [{
+  "itm_code": "61cd0ab0-c752-4620-8b90-e89e0234cef7",
+  "inv_class": "Others",
+  "category": "Faculty",
+  "itm_desc": "donec odio",
+  "stock": 958,
+  "publish": true
+}, {
+  "itm_code": "6d3ed0bb-7793-492e-aab8-bfaf3f50d2f1",
+  "inv_class": "Others",
+  "category": "Senior High",
+  "itm_desc": "vehicula",
+  "stock": 990,
+  "publish": false
+}, {
+  "itm_code": "7db1d083-c53f-4d04-a29b-b24a570c6768",
+  "inv_class": "Uniform",
+  "category": "Senior High",
+  "itm_desc": "at feugiat non",
+  "stock": 922,
+  "publish": false
+}, {
+  "itm_code": "bf618c7a-aca5-42de-bfa9-0a5006d105fd",
+  "inv_class": "Others",
+  "category": "Senior High",
+  "itm_desc": "nulla mollis molestie",
+  "stock": 793,
+  "publish": true
+}, {
+  "itm_code": "2f95e31c-24df-4dc3-881e-3b8e812c5395",
+  "inv_class": "Uniform",
+  "category": "College",
+  "itm_desc": "est",
+  "stock": 647,
+  "publish": false
+}, {
+  "itm_code": "4f511075-1300-4576-83c8-27e385164f57",
+  "inv_class": "Others",
+  "category": "Senior High",
+  "itm_desc": "elementum in",
+  "stock": 236,
+  "publish": false
+}, {
+  "itm_code": "7300721f-c8fc-48f5-ac09-8c3498d30f6a",
+  "inv_class": "Uniform",
+  "category": "Senior High",
+  "itm_desc": "eu",
+  "stock": 516,
+  "publish": true
+}, {
+  "itm_code": "19f3052a-2de5-4250-8c7e-4841aef03145",
+  "inv_class": "Others",
+  "category": "College",
+  "itm_desc": "duis at",
+  "stock": 87,
+  "publish": true
+}, {
+  "itm_code": "e25b3d0c-a6c9-4883-85d4-56733991a267",
+  "inv_class": "Uniform",
+  "category": "Senior High",
+  "itm_desc": "eros",
+  "stock": 188,
+  "publish": false
+}, {
+  "itm_code": "fc10422a-ad8b-4763-932c-c8eb4a69ca91",
+  "inv_class": "Uniform",
+  "category": "College",
+  "itm_desc": "in",
+  "stock": 887,
+  "publish": true
+}, {
+  "itm_code": "3623a2f7-76cd-463c-9dbd-2277c0cd0b4c",
+  "inv_class": "Uniform",
+  "category": "Faculty",
+  "itm_desc": "ut",
+  "stock": 964,
+  "publish": true
+}, {
+  "itm_code": "9ed558d2-eaa4-4845-a91f-1498122d4d99",
+  "inv_class": "Uniform",
+  "category": "Senior High",
+  "itm_desc": "sapien",
+  "stock": 892,
+  "publish": false
+}, {
+  "itm_code": "46ce85f7-365e-4ec0-a897-3aa3f5f7eb4d",
+  "inv_class": "Uniform",
+  "category": "Senior High",
+  "itm_desc": "ac nibh",
+  "stock": 694,
+  "publish": true
+}, {
+  "itm_code": "4a3c3b2f-db64-48f9-8d19-02db2a5a3995",
+  "inv_class": "Others",
+  "category": "Senior High",
+  "itm_desc": "tincidunt",
+  "stock": 633,
+  "publish": false
+}, {
+  "itm_code": "4f60428f-a8b9-4ae9-9630-0d40ca97ad74",
+  "inv_class": "Uniform",
+  "category": "Senior High",
+  "itm_desc": "ultrices posuere cubilia",
+  "stock": 598,
+  "publish": true
+}]
