@@ -2,7 +2,7 @@ import React from 'react'
 import { Table3 } from 'Components'
 import {inventory} from 'Utils/initialData'
 import {IconPark} from 'Assets/SvgIcons'
-import {iconPath} from 'Utils/handlingFunction'
+import {iconPath} from 'Utils/handlingFunction' 
 
 const InventoryPage = () => {
   const headers = ['Inventory Class', 'Category', 'Item Code', 'Item Description', 'In Stock']
