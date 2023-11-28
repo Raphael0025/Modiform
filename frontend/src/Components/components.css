@@ -20,7 +20,7 @@
     #lnk:hover {
         background-color: #ffffff30;
     }
-    .itm:hover{
+    .itm-2:hover{
         color: var(--yellow)
     }
 .ic {
@@ -137,11 +137,11 @@
 }
     .list-itm:hover{
         cursor: pointer;
-        color: var(--blue);
-        outline: 1px solid var(--blue);
+        color: var(--blue-2);
+        outline: 1px solid var(--blue-2);
     }
     .list-itm:focus{
-        color: var(--blue);
+        color: var(--blue-2);
     }
 .trans-bg{
     background-color: #d9d9d950;

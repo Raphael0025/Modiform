@@ -17,15 +17,15 @@ const Navbar = () => {
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
                 <div id='navbarSupportedContent' className='collapse navbar-collapse gap-5 d-flex justify-content-end'>
-                    <ul className='navbar-nav gap-5 w-50 d-flex justify-content-center'>
+                    <ul className='navbar-nav gap-5 w-50 d-flex justify-content-center align-items-center'>
                         {/* nav items */}
                         <li className={`nav-item`} >
-                            <Link className={`nav-link text-light fw-bolder`} to='/modiform/'><span className='itm text-uppercase'>Home</span></Link>
+                            <Link className={`nav-link text-light fw-bolder`} to='/modiform/'><span className='itm-2 text-uppercase'>Home</span></Link>
                         </li>
                         <li className={`nav-item dropdown`} >
-                            <a className="nav-link text-light dropdown-toggle fw-bolder text-light" href="#/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span className='itm text-uppercase'>Proware Shop</span>
-                            </a>
+                            <p className="nav-link text-light m-0 dropdown-toggle fw-bolder text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span className='itm-2 text-uppercase'>Proware Shop</span>
+                            </p>
                             <ul className="dropdown-menu " id='drop'>
                                 <li><Link id='lnk' className="dropdown-item text-center text-light" to="/modiform/college-shop">College</Link></li>
                                 <li><a id='lnk' className="dropdown-item text-center text-light" href="#/">High School</a></li>
@@ -33,7 +33,7 @@ const Navbar = () => {
                             </ul>
                         </li>
                         <li className={`nav-item`} >
-                            <a className={`nav-link text-light fw-bolder`} href='/'><span className='itm text-uppercase'>About</span></a>
+                            <a className={`nav-link text-light fw-bolder`} href='/'><span className='itm-2 text-uppercase'>About</span></a>
                         </li>
                     </ul>
                     {/* Buttons */}
