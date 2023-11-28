@@ -21,21 +21,11 @@ const getProductId = async (req, res) => {
     res.status(200).json(product)
 }
 
-// Get Top Products
-const getTopProducts = async (req, res) => {
-    try {
-        const topProducts = await Product.find({}).sort({ soldCount: -1 }).limit(3)
-        res.status(200).json(topProducts);
-    } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-}
-
 // Create Product
 const createProduct = async (req, res) => {
-    const { item_name, qty, unit_price, product_img } = req.body
+    const { invClass, category, status, size, item_name, qty, unit_price, product_img } = req.body
     try{
-        const product = await Product.create({ item_name, qty, unit_price, product_img })
+        const product = await Product.create({ invClass, category, status, size, item_name, qty, unit_price, product_img })
         res.status(200).json(product)
     }catch(error){
         res.status(400).json({error: error.message})
@@ -74,4 +64,4 @@ const deleteProduct = async (req, res) => {
     res.status(200).json(product)
 }
 
-module.exports = { getProducts, getTopProducts, getProductId, deleteProduct, updateProduct, createProduct }
+module.exports = { getProducts, getProductId, deleteProduct, updateProduct, createProduct }

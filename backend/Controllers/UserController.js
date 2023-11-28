@@ -8,6 +8,16 @@ const getUsers = async (req, res) => {
     res.status(200).json(users)
 }
 
+// API function to count total documents in the User collection
+const countUsers = async (req, res) => {
+    try {
+        const totalUsers = await User.countDocuments({});
+        res.status(200).json({ totalUsers });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
 // get single user
 const getUserById = async (req, res) => {
     const { id } = req.params
@@ -24,9 +34,9 @@ const getUserById = async (req, res) => {
 
 // create user
 const createUser = async (req, res) => {
-    const {first_name, last_name, user_name, email, password, gender, user_type, address, profile, phone} = req.body
+    const {user_name, email, password, user_type, profile} = req.body
     try{
-        const user = await User.create({first_name, last_name, user_name, email, password, gender, user_type, address, profile, phone})
+        const user = await User.create({user_name, email, password, user_type, profile})
         res.status(200).json(user)
     }catch(error){
         res.status(400).json({error: error.message})
@@ -66,6 +76,7 @@ const updateUser = async (req, res) => {
 
 module.exports = {
     getUsers,
+    countUsers,
     getUserById,
     createUser,
     deleteUser,
