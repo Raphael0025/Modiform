@@ -8,7 +8,7 @@ const NewItemPage = () => {
 
   const handleSizeChange = (size) => {
     if (size === 'none') {
-      // If 'None' is selected, clear all other selected sizes
+      // If 'none' is selected, clear all other selected sizes
       setSelectedSizes([]);
     } else {
       // Toggle the selected state of the size
@@ -18,7 +18,7 @@ const NewItemPage = () => {
       setSelectedSizes(updatedSizes);
       setFormData((prevData) => ({ ...prevData, size: updatedSizes }));
     }
-  }
+  }  
 
   const [formData, setFormData] = useState({
     item_name: '',

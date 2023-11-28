@@ -1,12 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const SizeSchema = new Schema({
-    size: {
-        type: String
-    }
-})
-
 const ProductSchema = new Schema({
     item_name: {
         type: String,
@@ -36,7 +30,10 @@ const ProductSchema = new Schema({
         required: true
     },
     product_img: String,
-    size: [SizeSchema]
+    size: {
+        type: [String], // This should be an array of strings
+        default: [],
+    },
 }, { timestamps: true })
 
 module.exports = mongoose.model('Product', ProductSchema, 'product_db') 
