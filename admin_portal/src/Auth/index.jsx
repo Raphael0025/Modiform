@@ -1,3 +1,3 @@
 import './auth.css'
-import Auth from './Auth'
+import Auth from './AdminAuth'
 export { Auth }

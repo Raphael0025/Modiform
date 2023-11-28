@@ -1,5 +1,5 @@
 import { UserAuth } from 'Pages/Auth'
-import { ContainerPage } from 'Views/ContainerPage'
+import { ContainerPage, PageRoute } from 'Views'
 import "react-loading-skeleton/dist/skeleton.css"
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ function App() {
           <Route path='/' element={<UserAuth />} />
           {/* Nested Routing Configuration from ContainerPage */}
           <Route path='/modiform/*' element={<ContainerPage />} />
+          <Route path='/admin/*' element={<PageRoute />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -50,3 +50,33 @@ label:has(+ input:placeholder-shown){
 input::placeholder{
     color: transparent;
 }
+.prompt{
+    font-weight: 300;
+}
+.header{
+    font-family: var(--type-face);
+}
+#login-button {
+    background-color: var(--white);
+    border: 2px solid transparent;
+    color: var(--white);
+    outline: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+}
+    #login-button:hover {
+        outline-offset: 5px;
+        outline-color: var(--secondary-text);
+        box-shadow: 0 0 0 2px var(--white); 
+    }
+    #login-button:disabled{
+        opacity: 50%;
+        outline-offset: -2px;
+    }
+.error-msg{
+    font-size: small;
+    font-stretch: condensed;
+}
+.backImage{
+    background-size: cover;
+    width: 350px;
+}

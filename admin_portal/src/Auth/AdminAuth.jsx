@@ -3,7 +3,7 @@ import { useNavigate  } from 'react-router-dom';
 import logo from 'Assets/images/yellowed.png'
 import bg from 'Assets/images/image_61.png'
 
-const Auth = () => {
+const AdminAuth = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
       name: '',
@@ -65,4 +65,4 @@ const Auth = () => {
   )
 }
 
-export default Auth
+export default AdminAuth

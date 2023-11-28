@@ -111,3 +111,55 @@
     animation: scaleAnimation 0.5s ease-in-out; /* Adjust the duration and timing function as needed */
 }
 
+#side{
+    width: 160px;
+    font-size: 0.9em;
+    background-color: var(--light-black);
+}#header{
+    width: calc(100% - 160px);
+    font-size: 0.8em;
+    box-shadow: 10px 0 6px 3px var(--gray);
+    background-color: var(--light-black);
+}
+.itm{
+    color: var(--blue-2);
+    transition: hover 0.3s ease-in-out;
+}
+    .itm:hover{
+        color: var(--blue-2);
+        cursor: pointer;
+    }
+.list-itm{
+    font-size: 0.9em;
+    color: var(--neutral);
+    transition: all 0.4s ease-in-out;
+    outline: 1px solid transparent;
+}
+    .list-itm:hover{
+        cursor: pointer;
+        color: var(--blue);
+        outline: 1px solid var(--blue);
+    }
+    .list-itm:focus{
+        color: var(--blue);
+    }
+.trans-bg{
+    background-color: #d9d9d950;
+}
+.table-container {
+    overflow: auto;
+    height: 300px;
+}
+.header-txt{
+    font-stretch: condensed;
+    font-weight: 600;
+    font-size: 13px;
+}
+.itm-list{
+    background-color: #2E3039;
+    color: var(--white);
+    transition: all 0.5s ease;
+}
+    .itm-list:hover{
+        background-color: var(--blue);
+    }

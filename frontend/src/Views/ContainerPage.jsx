@@ -4,7 +4,7 @@ import { Navbar } from 'Components'
 import { CartProvider } from 'Context/CartContext';
 import { Routes, Route } from 'react-router-dom';
 
-export const ContainerPage = () => {
+const ContainerPage = () => {
     return (
             <CartProvider>
                 <Navbar />
@@ -16,3 +16,4 @@ export const ContainerPage = () => {
             </CartProvider>
     );
 };
+export default ContainerPage
