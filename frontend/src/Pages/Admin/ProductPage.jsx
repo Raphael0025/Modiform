@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { inventory as initialInventory } from 'Utils/initialData';
 import {ToggleTable} from 'Components'
 import { useNavigate  } from 'react-router-dom';
@@ -11,7 +11,29 @@ const ProductPage = () => {
   // State for filtering options
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedDropdown, setSelectedDropdown] = useState(null);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState('')
+  const [products, setProducts] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  // Fetching Data from Database
+  useEffect(() => {
+    const fetchProducts = async () => {
+    try {
+        const response = await fetch('https://modiform-api.vercel.app/api/products');
+        const json = await response.json();
+
+        if (response.ok) {
+            setProducts(json);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    } finally {
+        // Set loading to false once data is fetched
+        setLoading(false);
+    }
+    };
+    fetchProducts()
+}, [])
 
   const handleCheckboxCheck = (itemCode) => {
     if (checkedItems.includes(itemCode)) {
