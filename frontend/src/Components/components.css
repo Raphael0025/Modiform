@@ -163,3 +163,6 @@
     .itm-list:hover{
         background-color: var(--blue);
     }
+input[type='file']{
+    display: none
+}
