@@ -37,7 +37,7 @@ const AdminAuth = () => {
   }
 
   return (
-    <main className='h-100 d-flex justify-content-center align-items-center'>
+    <main className='h-100 d-flex justify-content-center align-items-center' style={{backgroundColor: 'var(--bright-black)'}}>
       <section className='rounded-3 d-flex'>
         <div className='rounded-2 d-flex justify-content-center align-items-center p-5 backImage' style={{backgroundImage: `url(${bg})`}}>
             <img src={logo} alt='...' width={'150px'} />

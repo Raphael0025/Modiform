@@ -65,7 +65,7 @@ const ProductPage = () => {
           <p className='m-0' style={{fontSize: '11px', color: 'gray'}}>Manage the items</p>
         </div>
         <div>
-          <button onClick={() => {navigate('/new-item');}} className='btn btn-sm p-2 px-3 text-light' style={{backgroundColor: 'var(--dark-blue)'}}>+ Add New Item</button>
+          <button onClick={() => {navigate('/admin/new-item');}} className='btn btn-sm p-2 px-3 text-light' style={{backgroundColor: 'var(--dark-blue)'}}>+ Add New Item</button>
         </div>
       </div>
 

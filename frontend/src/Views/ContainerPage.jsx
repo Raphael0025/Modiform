@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 
 const ContainerPage = () => {
     return (
-            <CartProvider>
+            <CartProvider> 
                 <Navbar />
                 <Routes>
                     <Route path='/' element={<HeroPage />} />

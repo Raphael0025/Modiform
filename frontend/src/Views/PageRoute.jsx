@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigation } from 'Components'
 import { Dashboard, InventoryPage, OrderPage, NewItemPage, StudentPage, ProductPage } from 'Pages/Admin';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom'
 
 const PageRoute = () => {
   return (
