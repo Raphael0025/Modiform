@@ -29,7 +29,7 @@ const StudentPage = () => {
   };
 
   return (
-    <main id="customer" className="container-fluid">
+    <main id="customer" className="container-fluid vh-100">
       <div className="px-3 pt-3">
         <h2 className="py-2 page-header">Customer Management</h2>
       </div>

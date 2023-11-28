@@ -21,10 +21,6 @@ const CartSchema = new Schema({
         required: true,
         default: 0     
     },
-    shipping: {
-        type: String,
-        default: 'For Delivery'
-    },
     total_amount: {
         type: Number,
         default: 0

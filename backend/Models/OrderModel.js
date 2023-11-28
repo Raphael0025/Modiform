@@ -16,7 +16,12 @@ const ItemsSchema = new Schema({
     unit_price: {
         type: Number,
         default: 0
-    }, product_img: String
+    }, 
+    subTotal:{
+        type: Number,
+        default: 0.00
+    }, 
+    invClass: String,
 })
 
 const OrderSchema = new Schema({
@@ -24,8 +29,6 @@ const OrderSchema = new Schema({
     user_id: {
         type: ObjectId
     },
-    phone: String,
-    address: String,
     total_qty: {
         type: Number,
         required: true,
@@ -36,10 +39,7 @@ const OrderSchema = new Schema({
         required: true,
         default: 0.00
     },
-    shipping: {
-        type: String,
-        default: 'For Delivery'
-    }, 
+    status: String,
     item_list : [ItemsSchema]
 }, { timestamps: true })
 
