@@ -25,7 +25,7 @@ const ToggleTable = ({data, headers, height='430px', onDelete }) => {
             }));
 
             // Make an API call to update the status in the database
-            const response = await fetch(`/api/products/${itemId}`, {
+            const response = await fetch(`https://modiform-api.vercel.app/api/products/${itemId}`, {
                 method: 'PATCH',
                 headers: {
                 'Content-Type': 'application/json',
@@ -36,20 +36,15 @@ const ToggleTable = ({data, headers, height='430px', onDelete }) => {
             });
 
             if (!response.ok) {
-                console.log('CheckItems1: ', checkedItems)
                 throw new Error('Failed to update status')
             }
-            if (response.ok) {
-                console.log('CheckItems3: ', checkedItems)
-            }
-            console.log('CheckItems2: ', checkedItems)
         } catch (error) {
             console.error('Error updating status:', error);
         }
     }
 
     return (
-        <div role="table" className='w-100 text-center h-100'>
+        <div role="table" className='w-100 text-center'>
             <TableHeader headers={headers} />
             {data.length !== 0 ? <TableBody
                 dataContents={data}
@@ -99,13 +94,13 @@ const TableBody = ({dataContents, height, onDelete, onCheckboxChange, checkedIte
                 </span>
 
                 <span className='w-100 p-0 form-switch' style={{ fontSize: '12px' }} role='cell'>
-                <input
-                    type={'checkbox'}
-                    role='switch'
-                    className={`form-check-input py-2 px-3 ${checkedItems[data._id] ? 'bg-success' : 'bg-danger'}`}
-                    checked={checkedItems[data._id]}
-                    onChange={() => onCheckboxChange(data._id)}
-                />
+                    <input
+                        type={'checkbox'}
+                        role='switch'
+                        className={`form-check-input py-2 px-3 ${checkedItems[data._id] ? 'bg-success' : 'bg-danger'}`}
+                        checked={!!checkedItems[data._id]}
+                        onChange={() => onCheckboxChange(data._id)}
+                    />
                 </span>
 
                 <span className='w-100' style={{fontSize: '12px'}} role='cell'>

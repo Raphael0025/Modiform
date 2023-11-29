@@ -72,7 +72,7 @@ const ProductPage = () => {
   const navigate = useNavigate();
 
   return (
-    <main id='product' className='container-fluid h-100'>
+    <main id='product' className='container-fluid'>
       <div className='px-3 pt-3 d-flex justify-content-between align-items-center'>
         <div>
           <h2 className='py-2 m-0 page-header'>Item List</h2>
@@ -116,8 +116,8 @@ const ProductPage = () => {
         </div>
       </section>
 
-      <section className="container-fluid p-3" style={{height: '550px'}}>
-        <div className='rounded-3 d-flex align-items-start gap-3 statistic p-3 h-100'>
+      <section className="container-fluid p-3 pb-4" >
+        <div className='rounded-3 d-flex align-items-start gap-3 statistic p-3 '>
           <ToggleTable headers={headers} data={filteredData} height={'460px'} onDelete={handleDelete}/>
         </div>
       </section>

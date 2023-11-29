@@ -25,8 +25,8 @@ const StudentPage = () => {
   }, [])
 
   useEffect(() => {
-    updateFilteredContents()
-  }) // Update filteredContents whenever the searchQuery or allContents changes
+    updateFilteredContents(allContents);
+  }, [searchQuery, allContents]) // Update filteredContents whenever the searchQuery or allContents changes
 
   const updateFilteredContents = useCallback(() => {
     if (!Array.isArray(allContents)) {
@@ -58,7 +58,7 @@ const StudentPage = () => {
   };
 
   return (
-    <main id="customer" className="container-fluid vh-100">
+    <main id="customer" className="container-fluid ">
       <div className="px-3 pt-3">
         <h2 className="py-2 page-header">Customer Management</h2>
       </div>
@@ -72,7 +72,7 @@ const StudentPage = () => {
       </section>
       <section className="container-fluid p-3 text-light">
         <p style={{ fontSize: '14px' }}>User List</p>
-        <div className="px-4">
+        <div className="px-4 py-3">
           <Table2 headers={tableHeaders} data={filteredContents} onDelete={handleDelete} />
         </div>
       </section>
