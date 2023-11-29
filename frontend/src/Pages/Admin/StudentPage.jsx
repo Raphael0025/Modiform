@@ -1,32 +1,58 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import {Table2} from 'Components'
-import {user} from 'Utils/initialData'
 
 const StudentPage = () => {
   const tableHeaders = ['User ID', 'User Name', 'Order History'];
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filteredContents, setFilteredContents] = useState(user);
+  const [searchQuery, setSearchQuery] = useState(null);
+  const [filteredContents, setFilteredContents] = useState([]);
+
+  // Fetching Data from Database
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+          const response = await fetch('https://modiform-api.vercel.app/api/users')
+          const json = await response.json()
+
+          if (response.ok) {
+            setFilteredContents(json);
+          }
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+    };
+    fetchUsers()
+  }, [])
 
   const updateFilteredContents = useCallback(() => {
-    let filtered = user; // Should be filteredContents here
-
-    filtered = filtered.filter((content) =>
+    const filtered = filteredContents.filter((content) =>
       content.user_id.toLowerCase().includes(searchQuery.toLowerCase()) ||
       content.user_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredContents(filtered);
-  }, [searchQuery]);
+  }, [filteredContents, searchQuery])
+
+  const handleDelete = async (itemToDelete) => {
+    try {
+      // Make an API call to delete the item in the database
+      const response = await fetch(`https://modiform-api.vercel.app/api/users/${itemToDelete._id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete item');
+      }
+
+      // Remove the item from the local state using a unique identifier (user ID)
+      setFilteredContents((prevInventory) => prevInventory.filter((item) => item.user_id !== itemToDelete.user_id));
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  }
 
   useEffect(() => {
     updateFilteredContents(); // Update filteredContents whenever the searchQuery changes
   }, [searchQuery, updateFilteredContents]);
 
-  const deleteItem = (item) => {
-    // Remove the item from filteredContents
-    setFilteredContents((prevContents) =>
-      prevContents.filter((content) => content !== item)
-    );
-  };
 
   return (
     <main id="customer" className="container-fluid vh-100">
@@ -44,7 +70,7 @@ const StudentPage = () => {
       <section className="container-fluid p-3 text-light">
         <p style={{ fontSize: '14px' }}>User List</p>
         <div className="px-4">
-          <Table2 headers={tableHeaders} data={filteredContents} onDelete={deleteItem} />
+          <Table2 headers={tableHeaders} data={filteredContents} onDelete={handleDelete} />
         </div>
       </section>
     </main>

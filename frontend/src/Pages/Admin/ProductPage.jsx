@@ -22,7 +22,7 @@ const ProductPage = () => {
           }
       } catch (error) {
           console.error('Error fetching data:', error);
-      }
+      } 
     };
     fetchProducts()
   }, [])
