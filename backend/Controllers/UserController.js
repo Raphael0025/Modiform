@@ -16,7 +16,7 @@ const countUsers = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
-};
+}
 
 // get single user
 const getUserById = async (req, res) => {
@@ -34,9 +34,9 @@ const getUserById = async (req, res) => {
 
 // create user
 const createUser = async (req, res) => {
-    const {user_name, email, password, user_type, profile} = req.body
+    const {user_id, user_name, password, category, user_type} = req.body
     try{
-        const user = await User.create({user_name, email, password, user_type, profile})
+        const user = await User.create({user_id, user_name, password, category, user_type})
         res.status(200).json(user)
     }catch(error){
         res.status(400).json({error: error.message})

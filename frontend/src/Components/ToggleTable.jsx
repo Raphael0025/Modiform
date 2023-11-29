@@ -1,29 +1,63 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {IconPark} from 'assets/SvgIcons'
 import {iconPath} from 'Utils/handlingFunction'
 
-const ToggleTable = ({data, headers, height='430px', onCheckboxCheck, onDelete }) => {
-    const initialCheckedItems = data.filter((item) => item.publish).map((item) => item.itm_code);
-    const [checkedItems, setCheckedItems] = useState(initialCheckedItems);
+const ToggleTable = ({data, headers, height='430px', onDelete }) => {
+    // State to keep track of the checked checkboxes
+    const [checkedItems, setCheckedItems] = useState({});
 
-    const handleCheckboxChange = (itmCode) => {
-        const updatedCheckedItems = checkedItems.includes(itmCode)
-        ? checkedItems.filter((code) => code !== itmCode)
-        : [...checkedItems, itmCode];
-        setCheckedItems(updatedCheckedItems);
-        onCheckboxCheck(updatedCheckedItems); // Invoke the callback function with updated checked items
-    };
+    useEffect(() => {
+        // Initialize checked items based on data
+        const initialCheckedItems = {}
+            data.forEach((item) => {
+            initialCheckedItems[item._id] = item.status === 'Selling'
+        })
+        setCheckedItems(initialCheckedItems)
+    }, [data])
+
+    // Function to handle checkbox change
+    const handleCheckboxChange = async (itemId) => {
+        try {
+            // Update the state with the new checked items
+            setCheckedItems((prevCheckedItems) => ({
+                ...prevCheckedItems,
+                [itemId]: !prevCheckedItems[itemId],
+            }));
+
+            // Make an API call to update the status in the database
+            const response = await fetch(`/api/products/${itemId}`, {
+                method: 'PATCH',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                status: checkedItems[itemId] ? 'Stored' : 'Selling',
+                }),
+            });
+
+            if (!response.ok) {
+                console.log('CheckItems1: ', checkedItems)
+                throw new Error('Failed to update status')
+            }
+            if (response.ok) {
+                console.log('CheckItems3: ', checkedItems)
+            }
+            console.log('CheckItems2: ', checkedItems)
+        } catch (error) {
+            console.error('Error updating status:', error);
+        }
+    }
 
     return (
-        <div role="table" className='w-100'>
+        <div role="table" className='w-100 text-center h-100'>
             <TableHeader headers={headers} />
-            <TableBody
+            {data.length !== 0 ? <TableBody
                 dataContents={data}
                 height={height}
                 onDelete={onDelete}
                 onCheckboxChange={handleCheckboxChange}
                 checkedItems={checkedItems}
-            />
+            /> : <h4 className='text-light d-flex align-items-center justify-content-center'>No Products Added...</h4>}
         </div>
     )
 }
@@ -35,27 +69,27 @@ const TableBody = ({dataContents, height, onDelete, onCheckboxChange, checkedIte
         {dataContents.map((data, indx) => (
             <div role='row' key={indx} className={`table-row d-flex align-items-center text-light text-center py-2 rounded-3  `} >
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
-                    {data.inv_class}
+                    {data.invClass}
                 </span>
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
                     {data.category}
                 </span>
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
-                    {data.itm_code}
+                    {data.item_code}
                 </span>
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
-                    {data.itm_desc}
+                    {data.item_name}
                 </span>
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
-                    {data.stock}
+                    {data.qty}
                 </span>
 
                 <span
-                    className='w-100 text-truncate rounded-4 py-2'
-                    style={{ fontSize: '12px', backgroundColor: `${checkedItems.includes(data.itm_code) ? 'green' : 'red'}` }}
+                    className={`w-100 text-truncate rounded-4 py-2 `}
+                    style={{ fontSize: '12px', backgroundColor: `${checkedItems[data._id] ? 'green' : 'red'}` }}
                     role='cell'
                 >
-                    {checkedItems.includes(data.itm_code) ? 'Selling' : 'Stored'}
+                    {checkedItems[data._id] ? 'Selling' : 'Stored'}
                 </span>
 
                 <span className='w-100 text-truncate' style={{fontSize: '12px'}} role='cell'>
@@ -65,13 +99,13 @@ const TableBody = ({dataContents, height, onDelete, onCheckboxChange, checkedIte
                 </span>
 
                 <span className='w-100 p-0 form-switch' style={{ fontSize: '12px' }} role='cell'>
-                    <input
+                <input
                     type={'checkbox'}
                     role='switch'
-                    className={`form-check-input py-2 px-3 ${checkedItems.includes(data.itm_code) ? 'bg-success' : 'bg-danger'}`}
-                    checked={checkedItems.includes(data.itm_code)}
-                    onChange={() => onCheckboxChange(data.itm_code)}
-                    />
+                    className={`form-check-input py-2 px-3 ${checkedItems[data._id] ? 'bg-success' : 'bg-danger'}`}
+                    checked={checkedItems[data._id]}
+                    onChange={() => onCheckboxChange(data._id)}
+                />
                 </span>
 
                 <span className='w-100' style={{fontSize: '12px'}} role='cell'>

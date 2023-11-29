@@ -88,8 +88,19 @@ const NewItemPage = () => {
       if(!response.ok){
         alert('Product Not Uploaded')
         setLoading(false)
-        console.log(json)
-        
+        navigate('/admin/products')
+        setFormData({
+          item_code: '',
+          item_name: '',
+          invClass: '',
+          category: '',
+          qty: 0,
+          unit_price: 0,
+          product_img: '',
+          size: [],
+          status: 'Selling'
+        })
+        setSelectedSizes([])
     }
     if(response.ok){
         alert('Product Uploaded')

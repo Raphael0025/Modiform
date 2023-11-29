@@ -2,12 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
-    user_name: {
+    user_id:{
         type: String,
         required: true,
         unique: true
     },
-    email: {
+    user_name: {
         type: String,
         required: true,
         unique: true
@@ -16,16 +16,14 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    user_type: {
+    category: {
         type: String,
-        default: 'customer',
         required: true
     },
-    profile: {
-        picture: {
-            data: Buffer,  
-            contentType: String
-        }
+    user_type: {
+        type: String,
+        default: 'student',
+        required: true
     },
 }, { timestamps: true })
 

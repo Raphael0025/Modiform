@@ -1,57 +1,58 @@
 import React, {useState, useEffect} from 'react'
-import { inventory as initialInventory } from 'Utils/initialData';
 import {ToggleTable} from 'Components'
 import { useNavigate  } from 'react-router-dom';
 
 const ProductPage = () => {
   const headers = ['INV. Class', 'Category', 'Item Code', 'Item Description', 'In Stock', 'Status', 'View Item', 'Published', 'Actions']
-  
-  // State to keep track of the checked checkboxes
-  const [checkedItems, setCheckedItems] = useState([]);
   // State for filtering options
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedDropdown, setSelectedDropdown] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedDropdown, setSelectedDropdown] = useState(null)
   const [searchText, setSearchText] = useState('')
-  const [products, setProducts] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [inventory, setInventory] = useState(null) 
 
   // Fetching Data from Database
   useEffect(() => {
     const fetchProducts = async () => {
-    try {
-        const response = await fetch('https://modiform-api.vercel.app/api/products');
-        const json = await response.json();
-
-        if (response.ok) {
-            setProducts(json);
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    } finally {
-        // Set loading to false once data is fetched
-        setLoading(false);
-    }
+      try {
+          const response = await fetch('https://modiform-api.vercel.app/api/products');
+          const json = await response.json();
+          console.log(json)
+          if (response.ok) {
+            setInventory(json);
+          }
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
     };
     fetchProducts()
-}, [])
+  }, [])
 
-  const handleCheckboxCheck = (itemCode) => {
-    if (checkedItems.includes(itemCode)) {
-      // If the item is already checked, uncheck it
-      setCheckedItems((prevCheckedItems) =>
-        prevCheckedItems.filter((code) => code !== itemCode)
-      );
-    } else {
-      // If the item is not checked, check it
-      setCheckedItems((prevCheckedItems) => [...prevCheckedItems, itemCode]);
+  // Filtered data based on selected options
+  const filteredData = inventory
+    ? inventory.filter((item) => (
+        (!selectedCategory || item.category === selectedCategory) &&
+        (!selectedDropdown || item.invClass === selectedDropdown) &&
+        (searchText === '' || item.item_code.toLowerCase().includes(searchText.toLowerCase()))
+      ))
+    : []
+
+  const handleDelete = async (itemToDelete) => {
+    try {
+      // Make an API call to delete the item in the database
+      const response = await fetch(`https://modiform-api.vercel.app/api/products/${itemToDelete._id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete item');
+      }
+
+      // Remove the item from the local state
+      setInventory((prevInventory) => prevInventory.filter((item) => item !== itemToDelete));
+    } catch (error) {
+      console.error('Error deleting item:', error);
     }
-  };
-
-  const [inventory, setInventory] = useState(initialInventory);
-  const handleDelete = (itemToDelete) => {
-    setInventory((prevInventory) => prevInventory.filter((item) => item !== itemToDelete));
-    setCheckedItems([]);
-  };
+  }
 
   // Function to handle search
   const handleSearch = (event) => {
@@ -66,21 +67,12 @@ const ProductPage = () => {
   // Function to handle dropdown change
   const handleDropdownChange = (dropdown) => {
     setSelectedDropdown(dropdown === 'All' ? null : dropdown);
-  };
-
-  // Filtered data based on selected options
-  const filteredData = inventory.filter((item) => {
-    return (
-      (!selectedCategory || item.category === selectedCategory) &&
-      (!selectedDropdown || item.inv_class === selectedDropdown) &&
-      (searchText === '' || item.itm_code.toLowerCase().includes(searchText.toLowerCase()))
-    );
-  });
+  }
   
   const navigate = useNavigate();
 
   return (
-    <main id='product' className='container-fluid '>
+    <main id='product' className='container-fluid h-100'>
       <div className='px-3 pt-3 d-flex justify-content-between align-items-center'>
         <div>
           <h2 className='py-2 m-0 page-header'>Item List</h2>
@@ -94,8 +86,8 @@ const ProductPage = () => {
       <section className="container-fluid p-3 pb-0">
         <div className='rounded-3 d-flex align-items-end gap-3 statistic p-3'>
           <div className="d-flex w-100 flex-column">
-            <label htmlFor="search">Search Item</label>
-            <input value={searchText} onChange={handleSearch} type="text" className="p-2 w-100 rounded-2" id="search" placeholder="Search Item" name="search" required />
+            <label htmlFor="search">Search Item Code</label>
+            <input value={searchText} onChange={handleSearch} type="text" className="p-2 w-100 rounded-2" id="search" placeholder="Search Item Code" name="search" required />
           </div>
 
           <div className="dropdown w-100 statistic">
@@ -124,9 +116,9 @@ const ProductPage = () => {
         </div>
       </section>
 
-      <section className="container-fluid p-3">
-        <div className='rounded-3 d-flex align-items-end gap-3 statistic p-3'>
-          <ToggleTable headers={headers} data={filteredData} height={'460px'} checkedItems={checkedItems} onCheckboxCheck={handleCheckboxCheck} onDelete={handleDelete}/>
+      <section className="container-fluid p-3" style={{height: '550px'}}>
+        <div className='rounded-3 d-flex align-items-start gap-3 statistic p-3 h-100'>
+          <ToggleTable headers={headers} data={filteredData} height={'460px'} onDelete={handleDelete}/>
         </div>
       </section>
     </main>
