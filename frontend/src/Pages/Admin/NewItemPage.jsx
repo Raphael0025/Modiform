@@ -6,6 +6,18 @@ const NewItemPage = () => {
   const sizes = ['xs', 's', 'm', 'l', 'xl', '2xl', 'none']
   const [selectedSizes, setSelectedSizes] = useState([])
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate(); 
+  const [formData, setFormData] = useState({
+    item_code: '',
+    item_name: '',
+    invClass: '',
+    category: '',
+    qty: 0,
+    unit_price: 0,
+    product_img: '',
+    size: [],
+    status: 'Selling'
+  })
 
   const handleSizeChange = (size) => {
     if (size === 'NONE') {
@@ -19,19 +31,7 @@ const NewItemPage = () => {
       setSelectedSizes(updatedSizes);
       setFormData((prevData) => ({ ...prevData, size: updatedSizes }));
     }
-  }  
-
-  const [formData, setFormData] = useState({
-    item_code: '',
-    item_name: '',
-    invClass: '',
-    category: '',
-    qty: 0,
-    unit_price: 0,
-    product_img: '',
-    size: [],
-    status: 'Selling'
-  })
+  } 
 
   const handleDropdownChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -71,8 +71,6 @@ const NewItemPage = () => {
   const handleNumberInputChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   }
-  
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -145,8 +143,8 @@ const NewItemPage = () => {
               <input type="text" onChange={handleChange} value={formData.item_code} className="p-2 w-100 rounded-2" id="item_code" placeholder="Item Code" name="item_code" required />
             </div>
 
-            <div className="dropdown statistic">
-              <button className="statistic-2 text-light py-2 rounded-3 dropdown-toggle" style={{width: '350px'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div className="dropdown statistic w-100">
+              <button className="statistic-2 text-light py-2 rounded-3 dropdown-toggle w-100" style={{width: '350px'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
               {formData.invClass ? formData.invClass : 'Inventory Class'}
               </button>
               <ul className="dropdown-menu">
@@ -156,8 +154,8 @@ const NewItemPage = () => {
               </ul>
             </div>
 
-            <div className="dropdown statistic">
-              <button className="statistic-2 text-light py-2 rounded-3 dropdown-toggle" style={{width: '350px'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div className="dropdown statistic w-100">
+              <button className="statistic-2 text-light py-2 rounded-3 dropdown-toggle w-100" style={{width: '350px'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {formData.category ? formData.category : 'Category'}
               </button>
               <ul className="dropdown-menu">
@@ -202,18 +200,21 @@ const NewItemPage = () => {
 
             <div className='p-3 statistic-2 rounded-3 w-100'>
               <div className='d-flex flex-column justify-content-center'>
-                <label htmlFor='product_img' className='p-4 h-100 rounded-5'>
-                    <img alt={vector || ''} height={'250px'} src={formData.product_img || vector} />
+                <h6 className='text-light text-start'>Upload Item Images</h6>
+                <label htmlFor='product_img' className='p-4 h-100 rounded-5 text-center'>
+                    <img alt={vector || ''} height={'200px'} src={formData.product_img || vector} />
                 </label>
                 <input 
                 onChange={(e) => handleFileUpload(e)} 
                 type='file' lable='Image' className='p-2 rounded-3' id='product_img' name='product_img' accept='.jpeg, .png, .jpg' />
+                <caption className='text-light text-center p-0 m-0'>Click to Upload an image</caption>
+                <caption style={{fontSize: '10px'}} className='text-light text-center p-0 fst-italic '>(Only .jpeg, .png, and .jpg images are accepted)</caption>
               </div>
             </div>
           </div>
           
           <div className='d-flex gap-3 justify-content-end align-items-end flex-column'>
-            <button type='submit' disabled={loading ? true : false} className='btn w-25 text-light px-3 py-2' style={{backgroundColor: 'var(--dark-blue)'}}>Add Item</button>
+            <button type='submit'  className={`rounded-2 w-25 text-light px-3 py-2 ${loading ? 'disabled loading-button' : 'button'}`} >Add Item</button>
             <button onClick={handleCLear} type='button' className='btn w-25 text-light px-3 py-2' style={{backgroundColor: 'var(--gray)'}}>Cancel</button>
           </div>
 

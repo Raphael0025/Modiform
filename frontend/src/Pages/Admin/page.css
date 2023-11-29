@@ -45,3 +45,13 @@
     grid-column-gap: 20px;
     grid-row-gap: 20px;
 }
+.loading-button{
+    border: none;
+    color: var(--black);
+    background-color: var(--secondary-text);
+}
+.button{
+    border: none;
+    color: var(--white);
+    background-color: var(--dark-blue);
+}

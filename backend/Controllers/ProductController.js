@@ -23,9 +23,9 @@ const getProductId = async (req, res) => {
 
 // Create Product
 const createProduct = async (req, res) => {
-    const { invClass, category, status, size, item_name, qty, unit_price, product_img } = req.body
+    const { invClass, category, status, size, item_code, item_name, qty, unit_price, product_img } = req.body
     try{
-        const product = await Product.create({ invClass, category, status, size, item_name, qty, unit_price, product_img })
+        const product = await Product.create({ invClass, category, status, size, item_code, item_name, qty, unit_price, product_img })
         res.status(200).json(product)
     }catch(error){
         res.status(400).json({error: error.message})

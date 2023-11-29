@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
-      <div className="App w-auto">
+      <div className="App w-auto h-100">
         <Routes>
           <Route path='/' element={<UserAuth />} />
           <Route path='/auth' element={<AdminAuth/>} />
