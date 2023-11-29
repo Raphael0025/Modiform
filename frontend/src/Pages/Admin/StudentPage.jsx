@@ -2,38 +2,47 @@ import React, {useState, useEffect, useCallback} from 'react'
 import {Table2} from 'Components'
 
 const StudentPage = () => {
-  const tableHeaders = ['User ID', 'User Name', 'Order History'];
-  const [searchQuery, setSearchQuery] = useState(null);
-  const [filteredContents, setFilteredContents] = useState([]);
+  const tableHeaders = ['User ID', 'User Name', 'Category', 'Order History']
+  const [searchQuery, setSearchQuery] = useState('')
+  const [allContents, setAllContents] = useState([])
+  const [filteredContents, setFilteredContents] = useState([])
 
   // Fetching Data from Database
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-          const response = await fetch('https://modiform-api.vercel.app/api/users')
-          const json = await response.json()
+        const response = await fetch('https://modiform-api.vercel.app/api/users');
+        const json = await response.json();
 
-          if (response.ok) {
-            setFilteredContents(json);
-          }
+        if (response.ok) {
+          setAllContents(json);
+        }
       } catch (error) {
-          console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error);
       }
     };
-    fetchUsers()
+    fetchUsers();
   }, [])
 
+  useEffect(() => {
+    updateFilteredContents()
+  }) // Update filteredContents whenever the searchQuery or allContents changes
+
   const updateFilteredContents = useCallback(() => {
-    const filtered = filteredContents.filter((content) =>
-      content.user_id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      content.user_name.toLowerCase().includes(searchQuery.toLowerCase())
+    if (!Array.isArray(allContents)) {
+      return; // Handle the case when allContents is not an array
+    }
+
+    const filtered = allContents.filter(
+      (content) =>
+        content.user_id.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        content.user_type !== 'admin'
     );
-    setFilteredContents(filtered);
-  }, [filteredContents, searchQuery])
+    setFilteredContents(filtered)
+  }, [allContents, searchQuery])
 
   const handleDelete = async (itemToDelete) => {
     try {
-      // Make an API call to delete the item in the database
       const response = await fetch(`https://modiform-api.vercel.app/api/users/${itemToDelete._id}`, {
         method: 'DELETE',
       });
@@ -42,17 +51,11 @@ const StudentPage = () => {
         throw new Error('Failed to delete item');
       }
 
-      // Remove the item from the local state using a unique identifier (user ID)
-      setFilteredContents((prevInventory) => prevInventory.filter((item) => item.user_id !== itemToDelete.user_id));
+      setAllContents((prevContents) => prevContents.filter((item) => item.user_id !== itemToDelete.user_id));
     } catch (error) {
       console.error('Error deleting item:', error);
     }
-  }
-
-  useEffect(() => {
-    updateFilteredContents(); // Update filteredContents whenever the searchQuery changes
-  }, [searchQuery, updateFilteredContents]);
-
+  };
 
   return (
     <main id="customer" className="container-fluid vh-100">

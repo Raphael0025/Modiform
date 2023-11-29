@@ -16,13 +16,17 @@ const TableBody = ({dataContents, height, onDelete }) => {
 
     return(
         <div className='d-flex flex-column w-100 gap-2 table-container' role='rowgroup' style={{height: height}}>
-        {dataContents.map((data, indx) => (
-            <div role='row' key={indx} className={`table-row d-flex text-center py-2 rounded-3  `} >
-            {Object.values(data).map((value, index) => (
-                <span className='w-100 text-truncate text-light' style={{fontSize: '12px'}} role='cell' key={index}>
-                    {value}
+        {dataContents.map((data) => (
+            <div role='row' key={data._id} className={`table-row d-flex text-center py-2 rounded-3  `} >
+                <span className='w-100 text-truncate text-light' style={{fontSize: '12px'}} role='cell' >
+                    {data.user_id}
                 </span>
-            ))}
+                <span className='w-100 text-truncate text-light' style={{fontSize: '12px'}} role='cell' >
+                    {data.user_name}
+                </span>
+                <span className='w-100 text-truncate text-light' style={{fontSize: '12px'}} role='cell' >
+                    {data.category}
+                </span>
             <div className='d-flex gap-3 w-100 justify-content-center '>
                     <button className='btn btn-sm text-light'>
                     <IconPark path={iconPath('', 'messages', 'heroicons:magnifying-glass-plus-20-solid', 'heroicons:magnifying-glass-plus-20-solid')} size={20} />
