@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import {IconPark} from 'assets/SvgIcons'
 import {iconPath} from 'Utils/handlingFunction'
 import {Table} from 'Components'
-import {orderHistory} from 'Utils/initialData'
 
 const OrderPage = () => {
   const headers = ['Invoice ID', 'Date', 'User ID', 'User Name', 'Total Items', 'Total Amount', 'Status', 'Action', 'Invoice']

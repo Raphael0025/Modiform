@@ -14,6 +14,8 @@ const Table = ({data, headers, subHeader, height="300px"}) => {
 }
 
 const TableBody = ({ dataContents, height, subHeader }) => {
+
+    
     
     return (
         <div className='d-flex flex-column gap-2 table-container' role='rowgroup' style={{ height: height }}>
