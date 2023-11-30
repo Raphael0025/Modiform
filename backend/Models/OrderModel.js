@@ -5,6 +5,9 @@ const ItemsSchema = new Schema({
     item_id:{
         type: ObjectId
     },
+    item_code: {
+        type: String
+    },
     item_name: {
         type: String
     },
@@ -38,7 +41,10 @@ const OrderSchema = new Schema({
         required: true,
         default: 0.00
     },
-    status: String,
+    status: {
+        type: String,
+        default: 'Processing'
+    },
     item_list : [ItemsSchema]
 }, { timestamps: true })
 

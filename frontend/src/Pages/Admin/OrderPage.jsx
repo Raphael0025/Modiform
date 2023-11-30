@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {IconPark} from 'assets/SvgIcons'
 import {iconPath} from 'Utils/handlingFunction'
 import {Table} from 'Components'
@@ -7,16 +7,9 @@ import {orderHistory} from 'Utils/initialData'
 const OrderPage = () => {
   const headers = ['Invoice ID', 'Date', 'User ID', 'User Name', 'Total Items', 'Total Amount', 'Status', 'Action', 'Invoice']
   const subHeaders = ['Item Code', 'Item Description', 'Inventory Class', 'Quantity', 'Selling Price', 'Sub Total']
-
+  const [orders, setOrders] = useState(null)
   const [searchUserId, setSearchUserId] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
-
-  const filteredOrders = orderHistory.filter(order => {
-    const userIdMatch = order.user_id.includes(searchUserId);
-    const statusMatch = statusFilter === 'All' || order.status === statusFilter;
-
-    return userIdMatch && statusMatch;
-  });
 
   const handleSearchUserIdChange = (event) => {
     setSearchUserId(event.target.value);
@@ -25,6 +18,29 @@ const OrderPage = () => {
   const handleStatusFilterChange = (selectedStatus) => {
     setStatusFilter(selectedStatus);
   };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+          const response = await fetch('https://modiform-api.vercel.app/api/orders');
+          const json = await response.json();
+          console.log(json)
+          if (response.ok) {
+            setOrders(json);
+          }
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      } 
+    };
+    fetchProducts()
+  }, [])
+
+  const filteredOrders = orders &&  orders.filter(order => {
+    const userIdMatch = order.user_id.includes(searchUserId);
+    const statusMatch = statusFilter === 'All' || order.status === statusFilter;
+
+    return userIdMatch && statusMatch;
+  });
 
   return (
     <main id='order' className='container-fluid '>

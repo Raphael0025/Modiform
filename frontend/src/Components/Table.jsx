@@ -1,6 +1,7 @@
 import React from 'react'
 import { iconPath, handleStatus } from 'Utils/handlingFunction'
 import { IconPark } from 'assets/SvgIcons'
+import { format } from 'date-fns';
 
 const Table = ({data, headers, subHeader, height="300px"}) => {
     
@@ -16,16 +17,16 @@ const TableBody = ({ dataContents, height, subHeader }) => {
     
     return (
         <div className='d-flex flex-column gap-2 table-container' role='rowgroup' style={{ height: height }}>
-            {dataContents.map((data, indx) => (
+            {dataContents && dataContents.map((data, indx) => (
             <div role='row' key={indx} className='rounded-3 accordion-item text-light' style={{color: 'var(--white)', border: '1px solid var(--dark-blue)',backgroundColor: 'var(--light-black)'}}>
                 <h4 className={`accordion-header rounded-3 d-flex gap-2 align-items-center`}>
-                    <button className='btn w-100 d-flex gap-2 align-items-center text-light py-2 pe-0 collapsed' type='button' data-bs-toggle='collapse' data-bs-target={`#collapse${data.id}`} aria-expanded='false' aria-controls={`collapse${data.id}`}>
-                        <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data.id}</span>
-                        <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data.date}</span>
+                    <button className='btn w-100 d-flex gap-2 align-items-center text-light py-2 pe-0 collapsed' type='button' data-bs-toggle='collapse' data-bs-target={`#collapse${data._id}`} aria-expanded='false' aria-controls={`collapse${data._id}`}>
+                        <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data._id}</span>
+                        <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data.createdAt && format(new Date(data.createdAt), 'MMM dd, yyyy')}</span>
                         <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data.user_id}</span>
                         <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data.user_name}</span>
-                        <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data.items}</span>
-                        <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data.total_amt}</span>
+                        <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data.total_qty}</span>
+                        <span className='w-100 text-truncate' style={{ fontSize: '12px' }} role='cell' >{data.total_amount}</span>
                         <span className='w-100 text-truncate rounded-4 py-1' style={{ fontSize: '12px', backgroundColor: handleStatus(data.status) }} role='cell' >{data.status}</span>
                     </button>
                     <div className="dropdown d-flex justify-content-center align-items-center " style={{width: '180px'}}>
@@ -34,8 +35,8 @@ const TableBody = ({ dataContents, height, subHeader }) => {
                         </button>
                         <ul className="dropdown-menu gap-0" style={{backgroundColor: '#2E3039'}}>
                             <li><p className="p-2 itm-list m-0 ">Received</p></li>
-                            <li><p className="p-2 itm-list m-0 ">Processing</p></li>
                             <li><p className="p-2 itm-list m-0">Pending</p></li>
+                            <li><p className="p-2 itm-list m-0 ">Processing</p></li>
                             <li><p className="p-2 itm-list m-0">Canceled</p></li>
                         </ul>
                     </div>
@@ -48,7 +49,7 @@ const TableBody = ({ dataContents, height, subHeader }) => {
                         </button>
                     </div>
                 </h4>
-                <div id={`collapse${data.id}`} className='accordion-collapse collapse' data-bs-parent='#tableAccordion'>
+                <div id={`collapse${data._id}`} className='accordion-collapse collapse' data-bs-parent='#tableAccordion'>
                 <div className='accordion-body d-flex gap-3 py-2' style={{ fontSize: '10px', backgroundColor: '#142D3F' }}>
                     <div className='w-100'>
                         <div className='d-flex gap-2 align-items-center'>
@@ -60,11 +61,15 @@ const TableBody = ({ dataContents, height, subHeader }) => {
                                 <span className='w-100' key={indx}>{header}</span>
                             ))}
                         </div>
-                        {data.item.map((itm, i) => (
+                        {Array.isArray(data.item_list) &&
+                        data.item_list.map((item, i) => (
                             <div className='d-flex align-items-center gap-2 text-center py-1' key={i}>
-                                {Object.entries(itm).map(([key, value], indx) => (
-                                    <span className='w-100 text-truncate' key={indx} >{value}</span>
-                                ))}
+                                <span className='w-100'>{item.item_code}</span>
+                                <span className='w-100'>{item.item_name}</span>
+                                <span className='w-100'>{item.invClass}</span>
+                                <span className='w-100'>{item.qty}</span>
+                                <span className='w-100'>{item.unit_price}</span>
+                                <span className='w-100'>{item.subTotal}</span>
                             </div>
                         ))}
                     </div>
