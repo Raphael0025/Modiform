@@ -14,22 +14,22 @@ const TableBody = ({dataContents, height }) => {
 
     return(
         <div className='d-flex flex-column w-100 gap-2 text-light table-container' role='rowgroup' style={{height: height}}>
-        {dataContents.map((data, indx) => (
-            <div role='row' key={indx} className={`table-row d-flex text-center py-2 rounded-3  `} >
+        {dataContents && dataContents.map((data) => (
+            <div role='row' key={data._id} className={`table-row d-flex text-center py-2 rounded-3  `} >
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
-                    {data.inv_class}
+                    {data.invClass}
                 </span>
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
                     {data.category}
                 </span>
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
-                    {data.itm_code}
+                    {data.item_code}
                 </span>
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
-                    {data.itm_desc}
+                    {data.item_name}
                 </span>
                 <span className='w-100 text-truncate ' style={{fontSize: '12px'}} role='cell'>
-                    {data.stock}
+                    {data.qty}
                 </span>
             </div>
         ))}

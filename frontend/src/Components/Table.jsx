@@ -30,7 +30,7 @@ const TableBody = ({ dataContents, height, subHeader }) => {
                     </button>
                     <div className="dropdown d-flex justify-content-center align-items-center " style={{width: '180px'}}>
                         <button className="btn w-100 btn-sm dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" style={{fontSize: '12px', backgroundColor: '#2E3039'}}>
-                            {data.status}
+                            {data.status} 
                         </button>
                         <ul className="dropdown-menu gap-0" style={{backgroundColor: '#2E3039'}}>
                             <li><p className="p-2 itm-list m-0 ">Received</p></li>

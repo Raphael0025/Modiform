@@ -3,8 +3,7 @@ const { Schema, ObjectId } = mongoose
 
 const ItemsSchema = new Schema({
     item_id:{
-        type: ObjectId,
-        unique: false
+        type: ObjectId
     },
     item_name: {
         type: String
@@ -27,7 +26,7 @@ const ItemsSchema = new Schema({
 const OrderSchema = new Schema({
     user_name: String,
     user_id: {
-        type: ObjectId
+        type: String
     },
     total_qty: {
         type: Number,
