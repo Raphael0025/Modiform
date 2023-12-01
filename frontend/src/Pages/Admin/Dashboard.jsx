@@ -19,21 +19,25 @@ const Dashboard = () => {
                 const [
                     usersResponse,
                     ordersResponse,
-                    ordersCountResponse
+                    ordersCountResponse,
+                    orderRevenue
                 ] = await Promise.all([
                     fetch('https://modiform-api.vercel.app/api/users/count'),
                     fetch('https://modiform-api.vercel.app/api/orders'),
                     fetch('https://modiform-api.vercel.app/api/orders/count'),
+                    fetch('https://modiform-api.vercel.app/api/orders/revenue'),
                 ]);
     
                 const [
                     usersJson,
                     ordersJson,
-                    ordersCountJson
+                    ordersCountJson,
+                    orderRevenueJson
                 ] = await Promise.all([
                     usersResponse.json(),
                     ordersResponse.json(),
-                    ordersCountResponse.json()
+                    ordersCountResponse.json(),
+                    orderRevenue.json()
                 ]);
     
                 if (usersResponse.ok) {
@@ -56,13 +60,14 @@ const Dashboard = () => {
                     ]);
                 }
 
-                if (ordersCountResponse.ok) {
+                if (orderRevenue.ok) {
                     setSample((prevSample) => [
-                        ordersCountJson.totalRevenue,
+                        orderRevenueJson.totalSum,
                         prevSample[1],
                         prevSample[2],
                     ]);
                 }
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
