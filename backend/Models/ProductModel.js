@@ -32,7 +32,8 @@ const ProductSchema = new Schema({
     },
     status: {
         type: String,
-        required: true
+        required: true,
+        default: 'Stored'
     },
     product_img: String,
     size: {
