@@ -7,14 +7,6 @@ const getOrders = async (req, res) => {
     res.status(200).json(orders)
 }
 
-const countOrders = async (req, res) => {
-    try {
-        const totalOrders = await Order.countDocuments({});
-        res.status(200).json({ totalOrders });
-    } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-}
 
 // Create 
 const createOrder = async (req, res) => {
@@ -58,5 +50,40 @@ const deleteOrder = async (req, res) => {
     }
     res.status(200).json(order)
 }
+
+// Count total orders and calculate total revenue
+const getTotalRevenue = async () => {
+    try {
+        // Count total orders
+        const totalOrders = await Order.countDocuments({});
+
+        // Sum total revenue (total_amount) across all orders
+        const totalRevenueResult = await Order.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalRevenue: { $sum: '$total_amount' },
+                },
+            },
+        ]);
+
+        const totalRevenue = totalRevenueResult.length > 0 ? totalRevenueResult[0].totalRevenue : 0;
+
+        return { totalOrders, totalRevenue };
+    } catch (error) {
+        throw new Error('Error calculating total revenue: ' + error.message);
+    }
+};
+
+// Modified countOrders function to include total revenue
+const countOrders = async (req, res) => {
+    try {
+        const { totalOrders, totalRevenue } = await getTotalRevenue();
+        res.status(200).json({ totalOrders, totalRevenue });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
 
 module.exports = { getOrders, deleteOrder, countOrders, updateOrder, createOrder }

@@ -6,7 +6,7 @@ const Dashboard = () => {
     const [defaultBtn, setDefault] = useState('today')
     const [orders, setOrders] = useState(null)
     const caption = ['Revenue', 'Orders Received', 'Total Users']
-    const [sample, setSample] = useState([6000, 200, 0]);
+    const [sample, setSample] = useState([0, 0, 0]);
     const icons = ['tabler:currency-peso', 'mdi:cart-check', 'fluent:people-team-28-regular']
     const colors = ['#0694A2', '#FF8A4C', '#0E9F6E']
     const subHeaders = ['Item Code', 'Item Description', 'Inventory Class', 'Quantity', 'Selling Price', 'Sub Total']
@@ -14,27 +14,62 @@ const Dashboard = () => {
     const headers = ['Invoice ID', 'Date', 'User ID', 'User Name', 'Total Items', 'Total Amount', 'Status', 'Action', 'Invoice']
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch('https://modiform-api.vercel.app/api/users/count');
-                const json = await response.json();
-                console.log(json)
-                if (response.ok) {
-                    setSample((prevSample) => [...prevSample.slice(0, 2), json.totalUsers]);
+                const [
+                    usersResponse,
+                    ordersResponse,
+                    ordersCountResponse
+                ] = await Promise.all([
+                    fetch('https://modiform-api.vercel.app/api/users/count'),
+                    fetch('https://modiform-api.vercel.app/api/orders'),
+                    fetch('https://modiform-api.vercel.app/api/orders/count'),
+                ]);
+    
+                const [
+                    usersJson,
+                    ordersJson,
+                    ordersCountJson
+                ] = await Promise.all([
+                    usersResponse.json(),
+                    ordersResponse.json(),
+                    ordersCountResponse.json()
+                ]);
+    
+                if (usersResponse.ok) {
+                    setSample((prevSample) => [
+                        prevSample[0],
+                        prevSample[1],
+                        usersJson.totalUsers,
+                    ]);
+                }
+    
+                if (ordersResponse.ok) {
+                    setOrders(ordersJson);
+                }
+    
+                if (ordersCountResponse.ok) {
+                    setSample((prevSample) => [
+                        prevSample[0],
+                        ordersCountJson.totalOrders,
+                        prevSample[2],
+                    ]);
                 }
 
-                const response2 = await fetch('https://modiform-api.vercel.app/api/orders');
-                const json2 = await response2.json();
-                console.log(json2)
-                if (response2.ok) {
-                    setOrders(json2);
+                if (ordersCountResponse.ok) {
+                    setSample((prevSample) => [
+                        ordersCountJson.totalRevenue,
+                        prevSample[1],
+                        prevSample[2],
+                    ]);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
-            } 
+            }
         };
-        fetchUsers()
-    }, [])
+    
+        fetchData();
+    }, []);
 
     return (
         <main id='dash' className='container-fluid '>
