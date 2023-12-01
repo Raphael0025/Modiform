@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from 'assets/icons/logo.png';
 import { useNavigate } from 'react-router-dom';
-import { useUserContext } from './UserContext';
+import { useUserContext } from 'Context/UserContext';
 
 const UserAuth = () => {
   const navigate = useNavigate();

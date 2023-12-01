@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import bg2 from 'assets/imges/bg2.png'
+import bg2 from 'assets/imges/seniorHigh.png'
 import { SliderWrapper, AddToCartModal } from 'Components' 
 
 import imgITfront from 'assets/imges/ITPOLO2.png'
@@ -244,7 +244,7 @@ const HighShop = () => {
     return (
         <>
             <main className='mt-5 h-100'>
-                <section className='collegeBanner d-flex justify-content-center pt-3 position-relative'>
+                <section className='collegeBanner2 d-flex justify-content-center pt-3 position-relative'>
                     <img src={bg2} width={'50%'} alt='college' className=' position-relative' />
                     <div className='filt h-100 w-100 z-2 position-absolute top-0 left-0' />
                 </section>

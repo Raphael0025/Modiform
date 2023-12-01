@@ -3,7 +3,7 @@ import { ContainerPage, PageRoute } from 'Views'
 import "react-loading-skeleton/dist/skeleton.css"
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { UserProvider } from './UserContext';
+import { UserProvider } from 'Context/UserContext';
 function App() {
   return (
     <BrowserRouter>
