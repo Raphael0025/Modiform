@@ -7,6 +7,15 @@ const getOrders = async (req, res) => {
     res.status(200).json(orders)
 }
 
+const countOrders = async (req, res) => {
+    try {
+        const totalOrders = await Order.countDocuments({});
+        res.status(200).json({ totalOrders });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 // Create 
 const createOrder = async (req, res) => {
     const { total_qty, total_amount, item_list, user_name, user_id, status } = req.body
@@ -26,7 +35,7 @@ const updateOrder = async (req, res) => {
     }
 
     const order = await Order.findOneAndUpdate({_id: id}, {
-        ...req.body
+        ...req.body 
     })
 
     if(!order){
@@ -50,4 +59,4 @@ const deleteOrder = async (req, res) => {
     res.status(200).json(order)
 }
 
-module.exports = { getOrders, deleteOrder, updateOrder, createOrder }
+module.exports = { getOrders, deleteOrder, countOrders, updateOrder, createOrder }

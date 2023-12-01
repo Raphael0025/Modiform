@@ -1,17 +1,40 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { DoughnutChart, LineChart, Overview, Table } from 'Components'
 import { doughnutData, orderHistory } from 'Utils/initialData'
 
 const Dashboard = () => {
     const [defaultBtn, setDefault] = useState('today')
-    
+    const [orders, setOrders] = useState(null)
     const caption = ['Revenue', 'Orders Received', 'Total Users']
-    const sample = [6000, 200, 340]
+    const [sample, setSample] = useState([6000, 200, 0]);
     const icons = ['tabler:currency-peso', 'mdi:cart-check', 'fluent:people-team-28-regular']
     const colors = ['#0694A2', '#FF8A4C', '#0E9F6E']
     const subHeaders = ['Item Code', 'Item Description', 'Inventory Class', 'Quantity', 'Selling Price', 'Sub Total']
 
     const headers = ['Invoice ID', 'Date', 'User ID', 'User Name', 'Total Items', 'Total Amount', 'Status', 'Action', 'Invoice']
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await fetch('https://modiform-api.vercel.app/api/users/count');
+                const json = await response.json();
+                console.log(json)
+                if (response.ok) {
+                    setSample((prevSample) => [...prevSample.slice(0, 2), json.totalUsers]);
+                }
+
+                const response2 = await fetch('https://modiform-api.vercel.app/api/orders');
+                const json2 = await response2.json();
+                console.log(json2)
+                if (response2.ok) {
+                    setOrders(json2);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } 
+        };
+        fetchUsers()
+    }, [])
 
     return (
         <main id='dash' className='container-fluid '>
@@ -43,7 +66,7 @@ const Dashboard = () => {
             <section className='px-3 py-2 w-100'>
                 <div className='statistic rounded-3 p-3'>
                     <h4 className='header'>Recent Invoices</h4>
-                    <Table headers={headers} subHeader={subHeaders} data={orderHistory} />
+                    <Table headers={headers} subHeader={subHeaders} data={orders} />
                 </div>
             </section>
         </main>
