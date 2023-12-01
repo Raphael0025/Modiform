@@ -3,9 +3,11 @@ import { ContainerPage, PageRoute } from 'Views'
 import "react-loading-skeleton/dist/skeleton.css"
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import { UserProvider } from './UserContext';
 function App() {
   return (
     <BrowserRouter>
+    <UserProvider>
       <div className="App w-auto h-100">
         <Routes>
           <Route path='/' element={<UserAuth />} />
@@ -15,6 +17,7 @@ function App() {
           <Route path='/admin/*' element={<PageRoute />} />
         </Routes>
       </div>
+      </UserProvider>
     </BrowserRouter>
   );
 }

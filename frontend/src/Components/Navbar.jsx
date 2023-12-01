@@ -28,8 +28,8 @@ const Navbar = () => {
                             </p>
                             <ul className="dropdown-menu " id='drop'>
                                 <li><Link id='lnk' className="dropdown-item text-center text-light" to="/modiform/college-shop">College</Link></li>
-                                <li><a id='lnk' className="dropdown-item text-center text-light" href="#/">High School</a></li>
-                                <li><a id='lnk' className="dropdown-item text-center text-light" href="#/">Others</a></li>
+                                <li><Link id='lnk' className="dropdown-item text-center text-light" to="/modiform/high-shop">High School</Link></li>
+                                <li><Link id='lnk' className="dropdown-item text-center text-light" to="/modiform/other-shop">Others</Link></li>
                             </ul>
                         </li>
                         <li className={`nav-item`} >

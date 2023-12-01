@@ -89,15 +89,17 @@ const revenue = async (req, res) => {
     try {
       // Fetch all orders from the database
         const orders = await Order.find();
-    
-        // Compute the sum of total_amount
-        const totalSum = orders.reduce((sum, order) => sum + order.total_amount, 0);
-    
-        // Return the result as JSON
-        res.json({ total_sum: totalSum });
+
+      // Calculate the sum of total_amount
+        const totalAmountSum = orders.reduce((sum, order) => sum + order.total_amount, 0);
+
+      // Send the sum as a response
+        res.json({ totalAmountSum });
+        console.log(totalAmountSum)
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-};
+}
 
 module.exports = { getOrders, deleteOrder, revenue, countOrders, updateOrder, createOrder }

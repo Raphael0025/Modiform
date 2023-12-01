@@ -27,11 +27,11 @@ const HeroPage = () => {
                     <div className='w-50 bg-yellow pt-3 px-3 d-flex align-items-end' onClick={handleRedirect}>
                         <img width={'100%'} className='m-0 p-0' src={bg2} alt='college' />
                     </div>
-                    <div className='w-50 bg-blue2 pt-3 px-3 d-flex align-items-end'>
+                    <div className='w-50 bg-blue2 pt-3 px-3 d-flex align-items-end' onClick={() => { navigate('/modiform/high-shop');}}>
                         <img width={'100%'} src={shs} alt='shs' />
                     </div>
                 </div>
-                <div className='py-5 oth'>
+                <div className='py-5 oth' onClick={() => { navigate('/modiform/other-shop');}}>
                     <img src={other} width={'100%'} alt='others'/>
                 </div>
             </section>

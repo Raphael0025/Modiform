@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { DoughnutChart, LineChart, Overview, Table } from 'Components'
-import { doughnutData, orderHistory } from 'Utils/initialData'
+import { doughnutData } from 'Utils/initialData'
 
 const Dashboard = () => {
     const [defaultBtn, setDefault] = useState('today')
@@ -19,25 +19,21 @@ const Dashboard = () => {
                 const [
                     usersResponse,
                     ordersResponse,
-                    ordersCountResponse,
-                    orderRevenue
+                    ordersCountResponse
                 ] = await Promise.all([
                     fetch('https://modiform-api.vercel.app/api/users/count'),
                     fetch('https://modiform-api.vercel.app/api/orders'),
-                    fetch('https://modiform-api.vercel.app/api/orders/count'),
-                    fetch('https://modiform-api.vercel.app/api/orders/revenue'),
+                    fetch('https://modiform-api.vercel.app/api/orders/count')
                 ]);
     
                 const [
                     usersJson,
                     ordersJson,
-                    ordersCountJson,
-                    orderRevenueJson
+                    ordersCountJson
                 ] = await Promise.all([
                     usersResponse.json(),
                     ordersResponse.json(),
-                    ordersCountResponse.json(),
-                    orderRevenue.json()
+                    ordersCountResponse.json()
                 ]);
     
                 if (usersResponse.ok) {
@@ -50,20 +46,21 @@ const Dashboard = () => {
     
                 if (ordersResponse.ok) {
                     setOrders(ordersJson);
+                    // Calculate the sum of total_amount
+                    const totalAmountSum = ordersJson.reduce((sum, order) => sum + order.total_amount, 0);
+
+                    // Update the sample array with the calculated sum
+                    setSample((prevSample) => [
+                        totalAmountSum, // Update with revenue
+                        prevSample[1], // Keep orders received
+                        prevSample[2] // Keep total users
+                    ])
                 }
     
                 if (ordersCountResponse.ok) {
                     setSample((prevSample) => [
                         prevSample[0],
                         ordersCountJson.totalOrders,
-                        prevSample[2],
-                    ]);
-                }
-
-                if (orderRevenue.ok) {
-                    setSample((prevSample) => [
-                        orderRevenueJson.totalSum,
-                        prevSample[1],
                         prevSample[2],
                     ]);
                 }
