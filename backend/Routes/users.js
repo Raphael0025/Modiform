@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/', getUsers)
 
-router.get('/users/count', countUsers)
+router.get('/count', countUsers)
 
 router.get('/:id', getUserById)
 
