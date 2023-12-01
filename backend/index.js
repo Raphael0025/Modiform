@@ -12,7 +12,14 @@ const order = require('./Routes/orders')
 // express app
 const app = express()
 // Enable CORS for all routes
-app.use(cors());
+const corsOptions = {
+    origin: 'https://modiform.vercel.app/',  // Replace with your frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 // middleware
 app.use(express.json());
 
