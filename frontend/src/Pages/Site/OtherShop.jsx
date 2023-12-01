@@ -248,7 +248,7 @@ const OtherShop = () => {
                     <img src={bg2} width={'100%'} alt='college' className=' position-relative' />
                     <div className='filt h-100 w-100 z-2 position-absolute top-0 left-0' />
                 </section>
-                <section className='p-5 h-100 '>
+                <section className='p-5 h-100 '>  
                     <div className='gap-5 ms-5 d-flex'>
                         <button className={`text-uppercase rounded-1 px-4 py-1 fs-5 ${ category === 'men' ? 'bg-college text-light' : 'bg-college2' }`} onClick={() => setCategory('men')} > Men </button>
                         <button className={`text-uppercase rounded-1 px-4 py-1 fs-5 ${ category === 'women' ? 'bg-college text-light' : 'bg-college2' }`} onClick={() => setCategory('women')} > Women </button>
