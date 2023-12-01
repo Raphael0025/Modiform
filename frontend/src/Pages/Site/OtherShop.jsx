@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import bg2 from 'assets/imges/bg2.png'
+import bg2 from 'assets/imges/BE_FUTURE-READY_BE_STI_3.png'
 import { SliderWrapper, AddToCartModal } from 'Components' 
 
 import imgITfront from 'assets/imges/ITPOLO2.png'
@@ -244,8 +244,8 @@ const OtherShop = () => {
     return (
         <>
             <main className='mt-5 h-100'>
-                <section className='collegeBanner d-flex justify-content-center pt-3 position-relative'>
-                    <img src={bg2} width={'50%'} alt='college' className=' position-relative' />
+                <section className='collegeBanner3 d-flex justify-content-center position-relative'>
+                    <img src={bg2} width={'100%'} alt='college' className=' position-relative' />
                     <div className='filt h-100 w-100 z-2 position-absolute top-0 left-0' />
                 </section>
                 <section className='p-5 h-100 '>
