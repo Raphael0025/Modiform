@@ -22,16 +22,45 @@ const getProductId = async (req, res) => {
 }
 
 // Create Product
-const createProduct = async (req, res) => {
-    const { invClass, category, status, size, item_code, item_name, qty, unit_price, product_img } = req.body
-    try{
-        const product = await Product.create({ invClass, category, status, size, item_code, item_name, qty, unit_price, product_img })
-        res.status(200).json(product)
-    }catch(error){
-        res.status(400).json({error: error.message})
-    }
-}
+// const createProduct = async (req, res) => {
+//     const { invClass, category, status, size, item_code, item_name, qty, unit_price, product_img } = req.body
+//     try{
+//         const product = await Product.create({ invClass, category, status, size, item_code, item_name, qty, unit_price, product_img })
+//         res.status(200).json(product)
+//     }catch(error){
+//         res.status(400).json({error: error.message})
+//     }
+// }
 
+const createProduct = async (req, res) => {
+    const { invClass, category, status, size, item_code, item_name, qty, unit_price } = req.body;
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'Image file is required' });
+        }
+
+        const image = await Image.create({
+            data: req.file.buffer,
+            contentType: req.file.mimetype,
+        });
+
+        const product = await Product.create({
+            invClass,
+            category,
+            status,
+            size,
+            item_code,
+            item_name,
+            qty,
+            unit_price,
+            product_img: image._id,
+        });
+
+        res.status(200).json(product);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
 // Update Product
 const updateProduct = async (req, res) => {
     const { id } = req.params

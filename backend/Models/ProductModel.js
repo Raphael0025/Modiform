@@ -35,7 +35,7 @@ const ProductSchema = new Schema({
         required: true,
         default: 'Stored'
     },
-    product_img: String,
+    product_img: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
     size: {
         type: [String], // This should be an array of strings
         default: [],

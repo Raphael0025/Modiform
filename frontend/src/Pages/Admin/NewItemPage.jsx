@@ -45,50 +45,113 @@ const NewItemPage = () => {
       }));
   }
 
-  const convertToBase64 = (file) => {
-      return new Promise((resolve, reject) => {
-          const fileReader = new FileReader()
-          fileReader.readAsDataURL(file)
-
-          fileReader.onload = () => {
-              resolve(fileReader.result)
-          }
-          fileReader.onerror = (error) => {
-              reject(error)
-          }
-      })
-  }
-
-  const handleFileUpload = async (e) => {
-      const file = e.target.files[0];
-      const base64 = await convertToBase64(file)
-      setFormData((prevData) => ({
-          ...prevData,
-          'product_img': base64,
-      }));
-  }
-
   const handleNumberInputChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   }
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+    
+  //   setLoading(true)
+  //   try {
+  //     const response = await fetch('https://modiform-api.vercel.app/api/products', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(formData),
+  //     })
+  //     const json = await response.json()
+  //     if(!response.ok){
+  //       alert('Product Not Uploaded')
+  //       setLoading(false)
+  //       navigate('/admin/products')
+  //       setFormData({
+  //         item_code: '',
+  //         item_name: '',
+  //         invClass: '',
+  //         category: '',
+  //         qty: 0,
+  //         unit_price: 0,
+  //         product_img: '',
+  //         size: [],
+  //         status: 'Selling'
+  //       })
+  //       setSelectedSizes([])
+  //   }
+  //   if(response.ok){
+  //       alert('Product Uploaded')
+  //       setLoading(false)
+  //       console.log(json)
+  //       setFormData({
+  //         item_code: '',
+  //         item_name: '',
+  //         invClass: '',
+  //         category: '',
+  //         qty: 0,
+  //         unit_price: 0,
+  //         product_img: '',
+  //         size: [],
+  //         status: 'Selling'
+  //       })
+  //       setSelectedSizes([])
+  //   }
+  //   } catch (error) {
+  //     console.error('Error:', error.message);
+  //   }
+  // }
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await fetch('https://modiform-api.vercel.app/api/image', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const json = await response.json();
+      if (!response.ok) {
+        alert('Image Upload Failed');
+      } else {
+        // Update the form data with the received image ID
+        setFormData((prevData) => ({ ...prevData, product_img: json._id }));
+        alert('Image Uploaded Successfully');
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error.message);
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    setLoading(true)
+
+    setLoading(true);
+
     try {
+      // Upload the image first
+      await handleFileUpload(e);
+
+      // Once the image is uploaded, submit the product data
       const response = await fetch('https://modiform-api.vercel.app/api/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      })
-      const json = await response.json()
-      if(!response.ok){
-        alert('Product Not Uploaded')
-        setLoading(false)
-        navigate('/admin/products')
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        alert('Product Not Uploaded');
+        setLoading(false);
+      } else {
+        alert('Product Uploaded');
+        setLoading(false);
+
+        // Reset form data and selected sizes
         setFormData({
           item_code: '',
           item_name: '',
@@ -98,31 +161,14 @@ const NewItemPage = () => {
           unit_price: 0,
           product_img: '',
           size: [],
-          status: 'Selling'
-        })
-        setSelectedSizes([])
-    }
-    if(response.ok){
-        alert('Product Uploaded')
-        setLoading(false)
-        console.log(json)
-        setFormData({
-          item_code: '',
-          item_name: '',
-          invClass: '',
-          category: '',
-          qty: 0,
-          unit_price: 0,
-          product_img: '',
-          size: [],
-          status: 'Selling'
-        })
-        setSelectedSizes([])
-    }
+          status: 'Selling',
+        });
+        setSelectedSizes([]);
+      }
     } catch (error) {
       console.error('Error:', error.message);
     }
-  }
+  };
 
   const handleCLear = () => {
     navigate('/admin/products')
