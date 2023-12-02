@@ -27,18 +27,18 @@ const SliderCard = ({ data, addToCart, category }) => {
 
     return (
         <div className={`card itm-card border-light my-2 rounded-2 mx-1 ${isAnimating ? 'category-change' : ''}`} style={{ width: '350px' }}>
-            {newData.image === '' ? (
+            {newData.product_img === '' ? (
                 <Skeleton style={{ height: '390px' }} />
             ) : (
                 <div className='position-relative bg-pic'>
-                    <img src={newData.image2} height={'390px'} alt={newData.image2} className='card-img-top img-back d-inline-block' />
-                    <img src={newData.image} height={'390px'} alt={newData.image} className='card-img-top img-front d-inline-block' />
+                    <img src={newData.product_img} height={'390px'} alt={newData.product_img} className='card-img-top img-back d-inline-block' />
+                    <img src={newData.product_img} height={'390px'} alt={newData.product_img} className='card-img-top img-front d-inline-block' />
                 </div>
             )}
             <div className='card-body d-flex justify-content-between gap-3'>
                 <div className='d-flex w-50 flex-column'>
-                    <span className='fs-6 text-uppercase'>{newData.item}</span>
-                    <span className='fs-6 text-uppercase'>P {newData.price}.00</span>
+                    <span className='fs-6 text-uppercase'>{newData.item_name}</span>
+                    <span className='fs-6 text-uppercase'>P {newData.unit_price}.00</span>
                 </div>
                 <div className='d-flex w-50 align-items-center justify-content-end'>
                     <button type='button' className='px4 cart-btn py-2 w-100' onClick={() => addToCart(data)}>

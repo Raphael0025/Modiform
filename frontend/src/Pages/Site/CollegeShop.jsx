@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import bg2 from 'assets/imges/bg2.png'
-import { SliderWrapper, AddToCartModal } from 'Components' 
+import { SliderWrapper, AddToCartModal, ItemGallery } from 'Components' 
 
 import imgITfront from 'assets/imges/ITPOLO2.png'
 import imgITback from 'assets/imges/ITPOLO.png'
@@ -224,22 +224,25 @@ const CollegeShop = () => {
         },
     ]
 
+    const [itWear, setITWear] = useState(null)
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch('https://modiform-api.vercel.app/api/products');
+                const json = await response.json();
+                console.log(json)
+                if (response.ok) {
+                    setITWear(json);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } 
+        }
+        fetchProducts()
+    }, [])
     const [category, setCategory] = useState('men')
-    const filterDataByCategory = (data, selectedCategory) => {
-        return data.filter(item => item.category === selectedCategory);
-    };
-
-    const menItData = filterDataByCategory(itData, 'men');
-    const womenItData = filterDataByCategory(itData, 'women');
-
-    const menTmData = filterDataByCategory(tmData, 'men');
-    const womenTmData = filterDataByCategory(tmData, 'women');
-
-    const menHmData = filterDataByCategory(hmData, 'men');
-    const womenHmData = filterDataByCategory(hmData, 'women');
-
-    const menBmData = filterDataByCategory(bmData, 'men');
-    const womenBmData = filterDataByCategory(bmData, 'women');
+    
+    
 
     return (
         <>
@@ -254,22 +257,10 @@ const CollegeShop = () => {
                         <button className={`text-uppercase rounded-1 px-4 py-1 fs-5 ${ category === 'women' ? 'bg-college text-light' : 'bg-college2' }`} onClick={() => setCategory('women')} > Women </button>
                     </div>
                     <div className='list-section d-flex flex-column py-5 z-0'>
-                        <div className='list-wrapper mb-5'>
-                            <h4 className='ms-5 ps-3'>Information & Communications Technology</h4>
-                            <SliderWrapper data={category === 'men' ? menItData : womenItData} category={category} />
-                        </div>
-                        <div className='list-wrapper mb-5'>
-                            <h4 className='ms-5 ps-3'>Tourism Management</h4>
-                            <SliderWrapper data={category === 'men' ? menTmData : womenTmData} category={category} />
-                        </div>
-                        <div className='list-wrapper mb-5'>
-                            <h4 className='ms-5 ps-3'>Hospitality Management</h4>
-                            <SliderWrapper data={category === 'men' ? menHmData : womenHmData} category={category} />
-                        </div>
-                        <div className='list-wrapper'>
-                            <h4 className='ms-5 ps-3'>Business & Management</h4>
-                            <SliderWrapper data={category === 'men' ? menBmData : womenBmData} category={category} />
-                        </div>
+                        <ItemGallery title={'Information & Communications Technology'} items={itWear} />
+                        <ItemGallery title={'Tourism Management'} items={itWear} />
+                        <ItemGallery title={'Hospitality Management'} items={itWear} />
+                        <ItemGallery title={'Business & Management'} items={itWear} />
                     </div>
                 </section>
             </main>

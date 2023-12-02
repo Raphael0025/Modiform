@@ -30,6 +30,14 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
+    subCategory: {
+        type: String,
+        required: true
+    },
+    apparel: {
+        type: String,
+        required: true
+    },
     status: {
         type: String,
         required: true,

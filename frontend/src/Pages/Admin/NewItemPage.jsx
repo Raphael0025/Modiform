@@ -12,11 +12,12 @@ const NewItemPage = () => {
     item_name: '',
     invClass: '',
     category: '',
+    subCategory: '',
+    apparel: '',
     qty: 0,
     unit_price: 0,
     product_img: '',
-    size: [],
-    status: 'Selling'
+    size: []
   })
 
   const handleSizeChange = (size) => {
@@ -64,6 +65,7 @@ const NewItemPage = () => {
       const json = await response.json()
       if(!response.ok){
         alert('Product Not Uploaded')
+        console.log(json)
         setLoading(false)
         navigate('/admin/products')
         setFormData({
@@ -71,11 +73,12 @@ const NewItemPage = () => {
           item_name: '',
           invClass: '',
           category: '',
+          subCategory: '',
+          apparel: '',
           qty: 0,
           unit_price: 0,
           product_img: '',
-          size: [],
-          status: 'Selling'
+          size: []
         })
         setSelectedSizes([])
     }
@@ -88,11 +91,12 @@ const NewItemPage = () => {
           item_name: '',
           invClass: '',
           category: '',
+          subCategory: '',
+          apparel: '',
           qty: 0,
           unit_price: 0,
           product_img: '',
-          size: [],
-          status: 'Selling'
+          size: []
         })
         setSelectedSizes([])
     }
@@ -149,11 +153,6 @@ const handleFileUpload = async (e) => {
       <section className="container-fluid p-3">
         <form onSubmit={handleSubmit} className="rounded-3 statistic p-3">
           <div className='d-flex gap-3 align-items-end mb-3'>
-            <div className="d-flex w-100 flex-column">
-              <label htmlFor="item_code">Item Code</label>
-              <input type="text" onChange={handleChange} value={formData.item_code} className="p-2 w-100 rounded-2" id="item_code" placeholder="Item Code" name="item_code" required />
-            </div>
-
             <div className="dropdown statistic w-100">
               <button className="statistic-2 text-light py-2 rounded-3 dropdown-toggle w-100" style={{width: '350px'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
               {formData.invClass ? formData.invClass : 'Inventory Class'}
@@ -177,9 +176,39 @@ const handleFileUpload = async (e) => {
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'Junior High')}>Junior High</p></li>
               </ul>
             </div>
+            {formData.category === 'College' 
+            ? <div className="dropdown statistic w-100">
+              <button className="statistic-2 text-light py-2 rounded-3 dropdown-toggle w-100" style={{width: '350px'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {formData.subCategory ? formData.subCategory : 'Sub-Category'}
+              </button>
+              <ul className="dropdown-menu">
+                <li><p className="dropdown-item" onClick={() => handleDropdownChange('subCategory', 'Information Technology')}>Information Technology</p></li>
+                <li><p className="dropdown-item" onClick={() => handleDropdownChange('subCategory', 'Hospitality Management')}>Hospitality Management</p></li>
+                <li><p className="dropdown-item" onClick={() => handleDropdownChange('subCategory', 'Tourism Management')}>Tourism Management</p></li>
+                <li><p className="dropdown-item" onClick={() => handleDropdownChange('subCategory', 'Business Management')}>Business Management</p></li>
+              </ul>
+            </div>
+            : '' 
+            }
+
+            <div className="dropdown statistic w-100">
+              <button className="statistic-2 text-light py-2 rounded-3 dropdown-toggle w-100" style={{width: '350px'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {formData.apparel ? formData.apparel : 'Apparel'}
+              </button>
+              <ul className="dropdown-menu">
+                <li><p className="dropdown-item" onClick={() => handleDropdownChange('apparel', 'For Men')}>For Men</p></li>
+                <li><p className="dropdown-item" onClick={() => handleDropdownChange('apparel', 'For Women')}>For Women</p></li>
+                <li><p className="dropdown-item" onClick={() => handleDropdownChange('apparel', 'Others')}>Others</p></li>
+              </ul>
+            </div>
           </div>
 
-          <div className='d-flex gap-3 mb-3'>            
+          <div className='d-flex gap-3 mb-3'>    
+            <div className="d-flex w-100 flex-column">
+              <label htmlFor="item_code">Item Code</label>
+              <input type="text" onChange={handleChange} value={formData.item_code} className="p-2 w-100 rounded-2" id="item_code" placeholder="Item Code" name="item_code" required />
+            </div>
+
             <div className="d-flex w-100 flex-column">
               <label htmlFor="item_name">Item Description</label>
               <input type="text" onChange={handleChange} value={formData.item_name} className="p-2 w-100 rounded-2" id="item_name" placeholder="Item Description" name="item_name" required />

@@ -23,7 +23,7 @@ const SliderWrapper = ({ data, category }) => {
     return (
         <div className={`container p-1`}>
             <Slider {...settings}>
-                {data.map((item, indx) => (
+                {data && data.map((item, indx) => (
                     <SliderCard data={item} id={indx} addToCart={addToCart} category={category} />
                 ))}
             </Slider>
