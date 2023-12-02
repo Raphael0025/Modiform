@@ -59,7 +59,7 @@ const CollegeShop = () => {
                     )}
                 </section>
             </main>
-            
+            <AddToCartModal />
         </>
     )
 }

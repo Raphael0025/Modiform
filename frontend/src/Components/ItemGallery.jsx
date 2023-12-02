@@ -70,7 +70,7 @@ const ItemGallery = ({ items, title, subCategory, category }) => {
                                 <span className='fs-6 text-uppercase'>P {item.unit_price}.00</span>
                             </div>
                             <div className='d-flex w-50 align-items-center justify-content-end'>
-                                <button type='button' onClick={() => addToCart(item)} data-bs-backdrop="static" data-bs-target="#addToCart" data-bs-toggle="modal" className='px4 cart-btn py-2 w-100' >
+                                <button type='button' onClick={() => addToCart(item)} className='px4 cart-btn py-2 w-100' >
                                     <BsPlus size={24} /> Add to Cart
                                 </button>
                             </div>
@@ -86,7 +86,7 @@ const ItemGallery = ({ items, title, subCategory, category }) => {
                     : 'No Published Products...'}
                 </h6>
             )}
-            <AddCart />
+            <AddToCartModal />
             </div>
             
         </div>

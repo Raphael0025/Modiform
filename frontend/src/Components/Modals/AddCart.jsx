@@ -19,7 +19,7 @@ const AddCart = () => {
     }
 
     return (
-        <div className="modal fade" id="addToCart" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal fade" id="addItem" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content" style={{background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.175)'}}>
                     <div className="modal-header">
@@ -28,7 +28,7 @@ const AddCart = () => {
                     </div>
                     <div className="modal-body">
                         <form className='d-flex p-5 gap-3'>
-                            <img src={itemData.product_img} alt={itemData.item_name} />
+                            <img src={itemData.product_img} height={'20%'} alt={itemData.item_name} />
                             <div className='d-flex flex-column justify-content-start gap-0 align-items-start'>
                                 <p className='text-uppercase fw-bold fs-4 m-0'>{itemData.item}</p>
                                 <p className='fw-bold fs-5 m-0'>P {itemData.unit_price}.00</p>

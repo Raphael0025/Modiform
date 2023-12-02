@@ -22,15 +22,15 @@ const AddToCartModal = () => {
 
     return (
         <>
-            <div style={{visibility: `${isModalOpen ? 'visible' : 'hidden'}`}} className="modal-overlay d-flex justify-content-center align-items-center  w-100 h-100 position-fixed opacity-100" >
-                <div style={{visibility: `${isModalOpen ? 'visible' : 'hidden'}`}} className="modal-cust d-flex justify-content-center align-items-center flex-column rounded-2 bg-light  opacity-100">
+            <div style={{visibility: `${isModalOpen ? 'visible' : 'hidden'}`}} className="modal-overlay d-flex justify-content-center align-items-center  w-100 h-100 position-fixed opacity-75" >
+                <div style={{visibility: `${isModalOpen ? 'visible' : 'hidden'}`}} className="modal-cust d-flex justify-content-center align-items-center flex-column rounded-2 bg-light  opacity-75">
                     <div className='position-relative w-100'>
                         <button className='position-absolute top-0 end-0 m-2 btn' style={{color: 'var(--blue)'}} onClick={() => {setActive(null); closeModal();}}><FaTimes size={24}/></button>
                     </div>
                     <div className='d-flex p-5 gap-3'>
-                        <img src={itemData.product_img} alt={itemData.item_name} />
+                        <img src={itemData.product_img} height={'300px'} alt={itemData.item_name} />
                         <div className='d-flex flex-column justify-content-start gap-0 align-items-start'>
-                            <p className='text-uppercase fw-bold fs-4 m-0'>{itemData.item}</p>
+                            <p className='text-uppercase fw-bold fs-4 m-0'>{itemData.item_name}</p>
                             <p className='fw-bold fs-5 m-0'>P {itemData.unit_price}.00</p>
                             <button className='btn btn-outline-secondary btn-sm px-3 py-1 mt-5' data-bs-toggle="modal" data-bs-target="#exampleModal">Size Guide</button>
                             <div>
