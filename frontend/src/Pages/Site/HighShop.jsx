@@ -4,22 +4,30 @@ import { ItemGallery, AddToCartModal } from 'Components'
 
 const HighShop = () => {
 
-    const [Wear, setWear] = useState(null)
+    const [itWear, setITWear] = useState(null)
+    const [womenWear, setWomenWear] = useState(null)
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const response = await fetch('https://modiform-api.vercel.app/api/products');
                 const json = await response.json();
-                console.log(json)
+                console.log(json);
                 if (response.ok) {
-                    setWear(json);
+                    // Assuming 'apparel' is the field indicating whether it's for men or women
+                    const menItems = json.filter(item => item.apparel === 'For Men');
+                    const womenItems = json.filter(item => item.apparel === 'For Women');
+    
+                    setITWear(menItems);
+                    setWomenWear(womenItems);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
-            } 
-        }
-        fetchProducts()
-    }, [])
+            }
+        };
+    
+        fetchProducts();
+    }, []);
+    
     const [category, setCategory] = useState('men')
 
     return (
@@ -35,8 +43,17 @@ const HighShop = () => {
                         <button className={`text-uppercase rounded-1 px-4 py-1 fs-5 ${ category === 'women' ? 'bg-college text-light' : 'bg-college2' }`} onClick={() => setCategory('women')} > Women </button>
                     </div>
                     <div className='list-section d-flex flex-column py-5 z-0'>
-                        <ItemGallery title={'Junior High School'} category={'Junior High'} items={Wear} />
-                        <ItemGallery title={'Senior High School'} category={'Senior High'} items={Wear} />
+                    {category === 'men' ? (
+                        <div className='list-section d-flex flex-column py-5 z-0'>
+                            <ItemGallery title={'Junior High School'} category={'Junior High'} items={itWear} />
+                            <ItemGallery title={'Senior High School'} category={'Senior High'} items={itWear} />
+                        </div>
+                    ) : (
+                        <div className='list-section d-flex flex-column py-5 z-0'>
+                            <ItemGallery title={'Junior High School'} category={'Junior High'} items={womenWear} />
+                            <ItemGallery title={'Senior High School'} category={'Senior High'} items={womenWear} />
+                        </div>
+                    )}
                     </div>
                 </section>
             </main>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import bg2 from 'assets/imges/bg2.png'
-import { AddToCartModal, AddCart, ItemGallery } from 'Components' 
+import { AddToCartModal, ItemGallery } from 'Components' 
 
 const CollegeShop = () => {
 

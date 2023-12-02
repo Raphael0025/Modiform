@@ -31,19 +31,19 @@ const ItemGallery = ({ items, title, subCategory, category }) => {
         if (category === 'Senior High') {
             // If the category is College, filter by subCategory
             return items && Array.isArray(items)
-            ? items.filter((item) => item.subCategory === category)
+            ? items.filter((item) => item.category === category)
             : [];
         }
         if (category === 'Junior High') {
             // If the category is College, filter by subCategory
             return items && Array.isArray(items)
-            ? items.filter((item) => item.subCategory === category)
+            ? items.filter((item) => item.category === category)
             : [];
         } 
         if (category === 'Others') {
             // If the category is College, filter by subCategory
             return items && Array.isArray(items)
-            ? items.filter((item) => item.subCategory === category)
+            ? items.filter((item) => item.category === category)
             : [];
         }
     };

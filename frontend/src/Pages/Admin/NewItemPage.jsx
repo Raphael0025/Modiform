@@ -158,7 +158,6 @@ const handleFileUpload = async (e) => {
               {formData.invClass ? formData.invClass : 'Inventory Class'}
               </button>
               <ul className="dropdown-menu">
-                <li><p className="dropdown-item" onClick={() => handleDropdownChange('invClass', 'All')}>All</p></li>
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('invClass', 'Uniform')}>Uniform</p></li>
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('invClass', 'Others')}>Others</p></li>
               </ul>
@@ -169,11 +168,11 @@ const handleFileUpload = async (e) => {
                 {formData.category ? formData.category : 'Category'}
               </button>
               <ul className="dropdown-menu">
-                <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'All')}>All</p></li>
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'Faculty')}>Faculty</p></li>
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'College')}>College</p></li>
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'Senior High')}>Senior High</p></li>
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'Junior High')}>Junior High</p></li>
+                <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'Others')}>Junior High</p></li>
               </ul>
             </div>
             {formData.category === 'College' 
