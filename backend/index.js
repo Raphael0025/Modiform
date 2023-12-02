@@ -25,7 +25,9 @@ app.use(express.json());
 
 // Set up multer storage
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage, 
+    limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit 
+});
 
 app.use('/api/image', upload.single('product_img'), image);
 // routes
@@ -36,7 +38,12 @@ app.use('/api/orders', order)
 // app.use('/api/image', image)
 
 // connect to db
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+})
 .then(() => {
     // listening
     app.listen(process.env.PORT, () => {

@@ -273,8 +273,8 @@ console.log(json)
                 <input 
                 onChange={(e) => handleFileUpload(e)} 
                 type='file' lable='Image' className='p-2 rounded-3' id='product_img' name='product_img' accept='.jpeg, .png, .jpg' />
-                <caption className='text-light text-center p-0 m-0'>Click to Upload an image</caption>
-                <caption style={{fontSize: '10px'}} className='text-light text-center p-0 fst-italic '>(Only .jpeg, .png, and .jpg images are accepted)</caption>
+                <p className='text-light text-center p-0 m-0'>Click to Upload an image</p>
+                <p style={{fontSize: '10px'}} className='text-light text-center p-0 fst-italic '>(Only .jpeg, .png, and .jpg images are accepted)</p>
               </div>
             </div>
           </div>
