@@ -12,7 +12,7 @@ const NewItemPage = () => {
     item_name: '',
     invClass: '',
     category: '',
-    subCategory: 'Others',
+    subCategory: '',
     apparel: '',
     qty: 0,
     unit_price: 0,
@@ -73,7 +73,7 @@ const NewItemPage = () => {
           item_name: '',
           invClass: '',
           category: '',
-          subCategory: 'Others',
+          subCategory: '',
           apparel: '',
           qty: 0,
           unit_price: 0,
@@ -91,7 +91,7 @@ const NewItemPage = () => {
           item_name: '',
           invClass: '',
           category: '',
-          subCategory: 'Others',
+          subCategory: '',
           apparel: '',
           qty: 0,
           unit_price: 0,
@@ -116,7 +116,6 @@ const NewItemPage = () => {
       unit_price: 0,
       product_img: '',
       size: [],
-      status: 'Selling'
     })
     setSelectedSizes([])
   }
@@ -172,7 +171,7 @@ const handleFileUpload = async (e) => {
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'College')}>College</p></li>
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'Senior High')}>Senior High</p></li>
                 <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'Junior High')}>Junior High</p></li>
-                <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'Others')}>Junior High</p></li>
+                <li><p className="dropdown-item" onClick={() => handleDropdownChange('category', 'Others')}>Others</p></li>
               </ul>
             </div>
             {formData.category === 'College' 
