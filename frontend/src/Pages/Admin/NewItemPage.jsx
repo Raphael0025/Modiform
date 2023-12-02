@@ -112,6 +112,8 @@ const NewItemPage = () => {
       });
 
       const json = await response.json();
+      
+    console.log(json)
       if (!response.ok) {
         alert('Image Upload Failed');
       } else {
@@ -121,9 +123,10 @@ const NewItemPage = () => {
       }
     } catch (error) {
       console.error('Error uploading image:', error.message);
+      
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -143,7 +146,7 @@ const NewItemPage = () => {
       });
 
       const json = await response.json();
-
+console.log(json)
       if (!response.ok) {
         alert('Product Not Uploaded');
         setLoading(false);

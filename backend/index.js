@@ -33,7 +33,7 @@ app.use('/api/users', users)
 app.use('/api/products', products)
 app.use('/api/cart', cart)
 app.use('/api/orders', order)
-app.use('/api/image', image)
+// app.use('/api/image', image)
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
