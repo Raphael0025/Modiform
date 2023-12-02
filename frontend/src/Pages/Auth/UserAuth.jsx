@@ -41,15 +41,28 @@ const UserAuth = () => {
     );
 
     if (matchingUser) {
+      // Check the category type of the user
+      const { category } = matchingUser;
       // Successful login, store user data in context
       login(matchingUser);
-
-      // Redirect to the home screen
-      alert('LOGIN success');
-      navigate('/modiform/');
+      // Redirect based on category type
+      if (category === 'College') {
+        // Redirect to the college shop
+        alert('LOGIN success - College')
+        navigate('modiform/college-shop')
+      } else if (category === 'Senior High' || category === 'Junior High') {
+        // Redirect to the high school shop
+        alert('LOGIN success - High School')
+        navigate('modiform/high-shop')
+      } else {
+        // Handle other category types if needed
+        alert('LOGIN success - Other Category')
+        // Add additional logic or redirections as needed
+        navigate('modiform/')
+      }
     } else {
       // Display an error message or handle unsuccessful login
-      alert('LOGIN not success');
+      alert('Invalid credentials');
       console.log('Invalid credentials');
     }
   };

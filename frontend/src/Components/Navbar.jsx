@@ -4,8 +4,11 @@ import yellowLogo from 'assets/icons/yellowed.png'
 import { ShoppingCart, BellIcon } from 'Components'
 import { BiUser } from 'react-icons/bi'
 import { Link } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom'; 
 
 const Navbar = () => {
+    const navigate = useNavigate()
+
     return (
         <nav className='navbar navbar-expand-lg bg-blue px-5 p-0 fixed-top text-light'>
             <div className='container-fluid'>
@@ -38,7 +41,7 @@ const Navbar = () => {
                     </ul>
                     {/* Buttons */}
                     <form className='d-flex justify-content-center gap-4 p-2 w-25'>
-                        <button type='button' className='btn p-0 m-0' style={{border: 'none'}}>
+                        <button onClick={() => {navigate('/modiform/cart')}} type='button' className='btn p-0 m-0' style={{border: 'none'}}>
                             <ShoppingCart size={24} />
                         </button>
                         <button type='button' className='btn p-0 m-0' style={{border: 'none'}}>

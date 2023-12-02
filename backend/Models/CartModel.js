@@ -24,6 +24,18 @@ const CartSchema = new Schema({
     total_amount: {
         type: Number,
         default: 0
+    },
+    user_id: {
+        type: String,
+        unique: false
+    },
+    user_name: {
+        type: String,
+        unique: false
+    },
+    category: {
+        type: String,
+        unique: false
     }
 }, { timestamps: true })
 

@@ -2,34 +2,44 @@ import React, { useState, useEffect } from 'react';
 import { useCart } from 'Context/CartContext'
 import chart from 'assets/imges/sizeChart.png'
 import { FaTimes, FaMinus, FaPlus } from 'react-icons/fa'
+import { useUserContext  } from 'Context/UserContext'
 
 const AddToCartModal = () => {
     const { itemData, isModalOpen, closeModal } = useCart()
     const [isActive, setActive] = useState(null)
     const [quantity, setQuantity] = useState(1)
+    const { userData } = useUserContext()
 
-// New state for form data
-const [formData, setFormData] = useState({
-    item_id: '',
-    item_name: '',
-    size: '',
-    qty: 1,
-    unit_price: 0, // Add the actual unit price
-    total_amount: 0, // Add the logic for calculating the total amount
-  });
+    // New state for form data
+    const [formData, setFormData] = useState({
+        item_id: '',
+        item_name: '',
+        size: '',
+        qty: 1,
+        unit_price: 0, // Add the actual unit price
+        total_amount: 0, // Add the logic for calculating the total amount
+        user_id: '',
+        user_name: '',
+        category: ''
+    })
 
     useEffect(() => {
-        if (itemData) {
-        setFormData((prevData) => ({
-            ...prevData,
-            item_id: itemData._id,
-            item_name: itemData.item_name,
-        }));
+        console.log("userData:", userData);
+        console.log("FormData:", itemData);
+        if (itemData && userData) {
+            setFormData((prevData) => ({
+                ...prevData,
+                item_id: itemData._id,
+                item_name: itemData.item_name,
+                user_id: userData.user_id,
+                user_name: userData.user_name,
+                category: userData.category,
+            }));
         }
-    }, [itemData]);
+    }, [itemData, userData])
 
     if (!isModalOpen || !itemData) {
-        return null;
+        return null
     }
     
     const handleDecrement = () => {
@@ -43,7 +53,7 @@ const [formData, setFormData] = useState({
         setActive(size);
         // Update the form data with the selected size
         setFormData((prevData) => ({ ...prevData, size }));
-      };
+    }
 
     const handleAddToCart = async (e) => {
         e.preventDefault();
@@ -55,8 +65,8 @@ const [formData, setFormData] = useState({
             }
         })
         const json = await response.json()
-        console.log(json)
-
+        console.log('JSON: ',json)
+        console.log('Form Data: ', formData)
         if(!response.ok){
             alert('Cart Item Not Uploaded')
             setFormData({
@@ -66,6 +76,9 @@ const [formData, setFormData] = useState({
                 qty: 1,
                 unit_price: 0, // Add the actual unit price
                 total_amount: 0, 
+                user_id: '',
+                user_name: '',
+                category: ''
             })
         }
         if(response.ok){
@@ -77,9 +90,12 @@ const [formData, setFormData] = useState({
                 qty: 1,
                 unit_price: 0, // Add the actual unit price
                 total_amount: 0, 
+                user_id: '',
+                user_name: '',
+                category: ''
             })
         }
-      };
+    }
 
     return (
         <>
@@ -93,7 +109,7 @@ const [formData, setFormData] = useState({
                         <div className='d-flex flex-column justify-content-start gap-0 align-items-start'>
                             <p className='text-uppercase fw-bold fs-4 m-0'>{itemData.item_name}</p>
                             <p className='fw-bold fs-5 m-0'>P {itemData.unit_price}.00</p>
-                            <button className='btn btn-outline-secondary btn-sm px-3 py-1 mt-5' data-bs-toggle="modal" data-bs-target="#exampleModal">Size Guide</button>
+                            <button type='button' className='btn btn-outline-secondary btn-sm px-3 py-1 mt-5' data-bs-toggle="modal" data-bs-target="#exampleModal">Size Guide</button>
                             <div>
                                 <p className='text-uppercase fw-medium fs-6 p-0 m-0 mt-5'>size</p>
                                 <ul className='list-group list-group-horizontal'>
@@ -136,7 +152,7 @@ const [formData, setFormData] = useState({
                                         <ul className='list-group list-group-horizontal '>
                                             <li className='list-group-item list-group-item-action ac p-0 py-2 d-flex align-items-center justify-content-center' onClick={handleDecrement}><FaMinus style={{color: 'var(--blue)'}} size={12}/></li>
                                             <li className='list-group-item list-group-item-action p-0 d-flex justify-content-center align-items-center'>
-                                                <input type='number' min='1' value={quantity} className='w-100 inpt text-end'/>
+                                                <input type='number' onChange={(e) => setQuantity(parseInt(e.target.value, 10) || 1)} min='1' value={quantity} className='w-100 inpt text-end'/>
                                             </li>
                                             <li className='list-group-item list-group-item-action ac p-0 py-2 d-flex align-items-center justify-content-center' onClick={handleIncrement}><FaPlus style={{color: 'var(--blue)'}} size={12}/></li>
                                         </ul>
