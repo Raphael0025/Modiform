@@ -36,7 +36,7 @@ app.use('/api/orders', order)
 // app.use('/api/image', image)
 
 // connect to db
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI)
 .then(() => {
     // listening
     app.listen(process.env.PORT, () => {
