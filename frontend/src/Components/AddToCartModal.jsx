@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from 'Context/CartContext'
 import chart from 'assets/imges/sizeChart.png'
 import { FaTimes, FaMinus, FaPlus } from 'react-icons/fa'
@@ -7,6 +7,26 @@ const AddToCartModal = () => {
     const { itemData, isModalOpen, closeModal } = useCart()
     const [isActive, setActive] = useState(null)
     const [quantity, setQuantity] = useState(1)
+
+// New state for form data
+const [formData, setFormData] = useState({
+    item_id: '',
+    item_name: '',
+    size: '',
+    qty: 1,
+    unit_price: 0, // Add the actual unit price
+    total_amount: 0, // Add the logic for calculating the total amount
+  });
+
+    useEffect(() => {
+        if (itemData) {
+        setFormData((prevData) => ({
+            ...prevData,
+            item_id: itemData._id,
+            item_name: itemData.item_name,
+        }));
+        }
+    }, [itemData]);
 
     if (!isModalOpen || !itemData) {
         return null;
@@ -19,6 +39,47 @@ const AddToCartModal = () => {
     const handleIncrement = () => {
         setQuantity((prevQuantity) => prevQuantity + 1);
     }
+    const handleSizeClick = (size) => {
+        setActive(size);
+        // Update the form data with the selected size
+        setFormData((prevData) => ({ ...prevData, size }));
+      };
+
+    const handleAddToCart = async (e) => {
+        e.preventDefault();
+        const response = await fetch('https://modiform-api.vercel.app/api/cart', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const json = await response.json()
+        console.log(json)
+
+        if(!response.ok){
+            alert('Cart Item Not Uploaded')
+            setFormData({
+                item_id: '',
+                item_name: '',
+                size: '',
+                qty: 1,
+                unit_price: 0, // Add the actual unit price
+                total_amount: 0, 
+            })
+        }
+        if(response.ok){
+            alert('Cart Item Uploaded')
+            setFormData({
+                item_id: '',
+                item_name: '',
+                size: '',
+                qty: 1,
+                unit_price: 0, // Add the actual unit price
+                total_amount: 0, 
+            })
+        }
+      };
 
     return (
         <>
@@ -27,7 +88,7 @@ const AddToCartModal = () => {
                     <div className='position-relative w-100'>
                         <button className='position-absolute top-0 end-0 m-2 btn' style={{color: 'var(--blue)'}} onClick={() => {setActive(null); closeModal();}}><FaTimes size={24}/></button>
                     </div>
-                    <div className='d-flex p-5 gap-3'>
+                    <form onSubmit={handleAddToCart} className='d-flex p-5 gap-3'>
                         <img src={itemData.product_img} height={'300px'} alt={itemData.item_name} />
                         <div className='d-flex flex-column justify-content-start gap-0 align-items-start'>
                             <p className='text-uppercase fw-bold fs-4 m-0'>{itemData.item_name}</p>
@@ -38,32 +99,32 @@ const AddToCartModal = () => {
                                 <ul className='list-group list-group-horizontal'>
                                     <li style={{backgroundColor: `${isActive === 's' ? 'var(--dark-blue)' : ''}`}} 
                                         className={`${isActive === 's' ? 'text-light' : ''} list-group-item list-group-item-action text-decoration-none`} 
-                                        onClick={() => (setActive('s'))}>
+                                        onClick={() => handleSizeClick('s')}>
                                         S
                                     </li>
                                     <li style={{backgroundColor: `${isActive === 'm' ? 'var(--dark-blue)' : ''}`}} 
                                         className={`${isActive === 'm' ? 'text-light' : ''} list-group-item list-group-item-action text-decoration-none`} 
-                                        onClick={() => (setActive('m'))}>
+                                        onClick={() => handleSizeClick('m')}>
                                         M
                                     </li>
                                     <li style={{backgroundColor: `${isActive === 'l' ? 'var(--dark-blue)' : ''}`}} 
                                         className={`${isActive === 'l' ? 'text-light' : ''} list-group-item list-group-item-action text-decoration-none`} 
-                                        onClick={() => (setActive('l'))}>
+                                        onClick={() => handleSizeClick('l')}>
                                         L
                                     </li>
                                     <li style={{backgroundColor: `${isActive === 'xl' ? 'var(--dark-blue)' : ''}`}} 
                                         className={`${isActive === 'xl' ? 'text-light' : ''} list-group-item list-group-item-action text-decoration-none`} 
-                                        onClick={() => (setActive('xl'))}>
+                                        onClick={() => handleSizeClick('xl')}>
                                         XL
                                     </li>
                                     <li style={{backgroundColor: `${isActive === '2xl' ? 'var(--dark-blue)' : ''}`}} 
                                         className={`${isActive === '2xl' ? 'text-light' : ''} list-group-item list-group-item-action text-decoration-none`} 
-                                        onClick={() => (setActive('2xl'))}>
+                                        onClick={() => handleSizeClick('2xl')}>
                                         2XL
                                     </li>
                                     <li style={{backgroundColor: `${isActive === '3xl' ? 'var(--dark-blue)' : ''}`}} 
                                         className={`${isActive === '3xl' ? 'text-light' : ''} list-group-item list-group-item-action text-decoration-none`} 
-                                        onClick={() => (setActive('3xl'))}>
+                                        onClick={() => handleSizeClick('3xl')}>
                                         3XL
                                     </li>
                                 </ul>
@@ -81,10 +142,10 @@ const AddToCartModal = () => {
                                         </ul>
                                     </div>
                                 </div>
-                                <button className='py-2 px-4 cart-btn'> Add to Cart </button>
+                                <button type='submit' className='py-2 px-4 cart-btn'> Add to Cart </button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div id='exampleModal' className='modal fade' aria-hidden="true">
