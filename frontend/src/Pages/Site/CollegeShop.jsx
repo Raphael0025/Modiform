@@ -257,10 +257,10 @@ const CollegeShop = () => {
                         <button className={`text-uppercase rounded-1 px-4 py-1 fs-5 ${ category === 'women' ? 'bg-college text-light' : 'bg-college2' }`} onClick={() => setCategory('women')} > Women </button>
                     </div>
                     <div className='list-section d-flex flex-column py-5 z-0'>
-                        <ItemGallery title={'Information & Communications Technology'} items={itWear} />
-                        <ItemGallery title={'Tourism Management'} items={itWear} />
-                        <ItemGallery title={'Hospitality Management'} items={itWear} />
-                        <ItemGallery title={'Business & Management'} items={itWear} />
+                        <ItemGallery title={'Information & Communications Technology'} subCategory={'Information Technology'} items={itWear} />
+                        <ItemGallery title={'Tourism Management'} subCategory={'Tourism Management'} items={itWear} />
+                        <ItemGallery title={'Hospitality Management'} subCategory={'Hospitality Management'} items={itWear} />
+                        <ItemGallery title={'Business & Management'} subCategory={'Business Management'} items={itWear} />
                     </div>
                 </section>
             </main>
