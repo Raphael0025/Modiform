@@ -5,7 +5,7 @@ const ProductSchema = new Schema({
     item_code:{
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
     item_name: {
         type: String,
