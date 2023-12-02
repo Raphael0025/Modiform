@@ -49,118 +49,23 @@ const NewItemPage = () => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-    
-  //   setLoading(true)
-  //   try {
-  //     const response = await fetch('https://modiform-api.vercel.app/api/products', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(formData),
-  //     })
-  //     const json = await response.json()
-  //     if(!response.ok){
-  //       alert('Product Not Uploaded')
-  //       setLoading(false)
-  //       navigate('/admin/products')
-  //       setFormData({
-  //         item_code: '',
-  //         item_name: '',
-  //         invClass: '',
-  //         category: '',
-  //         qty: 0,
-  //         unit_price: 0,
-  //         product_img: '',
-  //         size: [],
-  //         status: 'Selling'
-  //       })
-  //       setSelectedSizes([])
-  //   }
-  //   if(response.ok){
-  //       alert('Product Uploaded')
-  //       setLoading(false)
-  //       console.log(json)
-  //       setFormData({
-  //         item_code: '',
-  //         item_name: '',
-  //         invClass: '',
-  //         category: '',
-  //         qty: 0,
-  //         unit_price: 0,
-  //         product_img: '',
-  //         size: [],
-  //         status: 'Selling'
-  //       })
-  //       setSelectedSizes([])
-  //   }
-  //   } catch (error) {
-  //     console.error('Error:', error.message);
-  //   }
-  // }
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-  
-    if (file.size > 6 * 1024 * 1024) {
-      alert('File size exceeds the limit (5MB). Please choose a smaller file.');
-      return;
-    }
-  
-    const formData = new FormData();
-    formData.append('image', file);
-  
-    try {
-      const response = await fetch('https://modiform-api.vercel.app/api/image', {
-        method: 'POST',
-        mode: 'cors', // Add this line to ensure CORS mode
-        headers: {
-          // Add necessary headers if required (e.g., content-type)
-        },
-        body: formData,
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to upload image');
-      }
-  
-      const data = await response.json();
-      console.log('Image uploaded:', data);
-    } catch (error) {
-      console.error('Error uploading image:', error.message);
-    }
-  };
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setLoading(true);
-
+    
+    setLoading(true)
     try {
-      // Upload the image first
-      await handleFileUpload(e);
-
-      // Once the image is uploaded, submit the product data
       const response = await fetch('https://modiform-api.vercel.app/api/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      });
-
-      const json = await response.json();
-console.log(json)
-      if (!response.ok) {
-        alert('Product Not Uploaded');
-        setLoading(false);
-      } else {
-        alert('Product Uploaded');
-        setLoading(false);
-
-        // Reset form data and selected sizes
+      })
+      const json = await response.json()
+      if(!response.ok){
+        alert('Product Not Uploaded')
+        setLoading(false)
+        navigate('/admin/products')
         setFormData({
           item_code: '',
           item_name: '',
@@ -170,14 +75,31 @@ console.log(json)
           unit_price: 0,
           product_img: '',
           size: [],
-          status: 'Selling',
-        });
-        setSelectedSizes([]);
-      }
+          status: 'Selling'
+        })
+        setSelectedSizes([])
+    }
+    if(response.ok){
+        alert('Product Uploaded')
+        setLoading(false)
+        console.log(json)
+        setFormData({
+          item_code: '',
+          item_name: '',
+          invClass: '',
+          category: '',
+          qty: 0,
+          unit_price: 0,
+          product_img: '',
+          size: [],
+          status: 'Selling'
+        })
+        setSelectedSizes([])
+    }
     } catch (error) {
       console.error('Error:', error.message);
     }
-  };
+  }
 
   const handleCLear = () => {
     navigate('/admin/products')
@@ -194,6 +116,29 @@ console.log(json)
     })
     setSelectedSizes([])
   }
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader()
+        fileReader.readAsDataURL(file)
+
+        fileReader.onload = () => {
+            resolve(fileReader.result)
+        }
+        fileReader.onerror = (error) => {
+            reject(error)
+        }
+    })
+}
+
+const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file)
+    setFormData((prevData) => ({
+        ...prevData,
+        'product_img': base64,
+    }));
+}
 
   return (
     <main id='new-item' className='container-fluid'>
