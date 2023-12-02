@@ -102,30 +102,36 @@ const NewItemPage = () => {
   // }
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
+  
+    if (file.size > 6 * 1024 * 1024) {
+      alert('File size exceeds the limit (5MB). Please choose a smaller file.');
+      return;
+    }
+  
     const formData = new FormData();
     formData.append('image', file);
-
+  
     try {
       const response = await fetch('https://modiform-api.vercel.app/api/image', {
         method: 'POST',
+        mode: 'cors', // Add this line to ensure CORS mode
+        headers: {
+          // Add necessary headers if required (e.g., content-type)
+        },
         body: formData,
       });
-
-      const json = await response.json();
-      
-    console.log(json)
+  
       if (!response.ok) {
-        alert('Image Upload Failed');
-      } else {
-        // Update the form data with the received image ID
-        setFormData((prevData) => ({ ...prevData, product_img: json._id }));
-        alert('Image Uploaded Successfully');
+        throw new Error('Failed to upload image');
       }
+  
+      const data = await response.json();
+      console.log('Image uploaded:', data);
     } catch (error) {
       console.error('Error uploading image:', error.message);
-      
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
