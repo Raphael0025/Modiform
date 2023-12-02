@@ -28,11 +28,11 @@ const ProductSchema = new Schema({
     },
     category: {
         type: String,
-        required: true
+        required: false
     },
     subCategory: {
         type: String,
-        required: true
+        required: false
     },
     apparel: {
         type: String,
