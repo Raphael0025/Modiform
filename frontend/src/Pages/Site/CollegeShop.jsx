@@ -1,249 +1,35 @@
 import React, {useState, useEffect} from 'react'
 import bg2 from 'assets/imges/bg2.png'
-import { SliderWrapper, AddToCartModal, ItemGallery } from 'Components' 
-
-import imgITfront from 'assets/imges/ITPOLO2.png'
-import imgITback from 'assets/imges/ITPOLO.png'
-import pantsITfront from 'assets/imges/pantsITfront.png'
-import pantsITback from 'assets/imges/pantsITback.png'
-
-import poloTm from 'assets/imges/tmPolo.png'
-import pantsTM from 'assets/imges/tmPants.png'
-import blazerTM from 'assets/imges/blazer.png'
-import tie from 'assets/imges/tie.png'
-
-import poloHM from 'assets/imges/hmPolo.png'
-import pantsHM from 'assets/imges/HMPants.png'
-import blazerHM from 'assets/imges/HMBlazer.png'
-import chef from 'assets/imges/chef.png'
-import vest from 'assets/imges/vest.png'
+import { AddToCartModal, AddCart, ItemGallery } from 'Components' 
 
 const CollegeShop = () => {
 
-    const itData = [
-        {
-            id: 1,
-            image: imgITfront,
-            image2: imgITback,
-            item: 'men`s ICT polo',
-            category: 'men',
-            price: '350'
-        },
-        {
-            id: 2,
-            image: pantsITfront,
-            image2: pantsITback,
-            item: 'pants',
-            category: 'men',
-            price: '450'
-        },
-        {
-            id: 3,
-            image: pantsITback,
-            image2: pantsITfront,
-            item: 'women`s ICT polo',
-            category: 'women',
-            price: '350'
-        },
-        {
-            id: 4,
-            image: imgITback,
-            image2: imgITfront,
-            item: 'women`s pants',
-            category: 'women',
-            price: '450'
-        },
-    ]
-
-    const tmData = [
-        {
-            id: 1,
-            image: poloTm,
-            image2: poloTm,
-            item: 'polo',
-            category: 'men',
-            price: '355'
-        },
-        {
-            id: 2,
-            image: pantsTM,
-            image2: pantsTM,
-            item: 'pants',
-            category: 'men',
-            price: '360'
-        },
-        {
-            id: 3,
-            image: blazerTM,
-            image2: blazerTM,
-            item: 'blazer',
-            category: 'men',
-            price: '760'
-        },
-        {
-            id: 4,
-            image: tie,
-            image2: tie,
-            item: 'yellow necktie',
-            category: 'men',
-            price: '140'
-        },
-        {
-            id: 5,
-            image: poloTm,
-            image2: poloTm,
-            item: 'women`s polo',
-            category: 'women',
-            price: '355'
-        },
-        {
-            id: 6,
-            image: pantsTM,
-            image2: pantsTM,
-            item: 'women`s pants',
-            category: 'women',
-            price: '360'
-        },
-    ]
-
-    const hmData = [
-        {
-            id: 1,
-            image: poloHM,
-            image2: poloHM,
-            item: 'polo',
-            category: 'men',
-            price: '355'
-        },
-        {
-            id: 2,
-            image: pantsHM,
-            image2: pantsHM,
-            item: 'pants',
-            category: 'men',
-            price: '360'
-        },
-        {
-            id: 3,
-            image: blazerHM,
-            image2: blazerHM,
-            item: 'blazer',
-            category: 'men',
-            price: '760'
-        },
-        {
-            id: 4,
-            image: chef,
-            image2: chef,
-            item: 'chef`s polo',
-            category: 'men',
-            price: '760'
-        },
-        {
-            id: 5,
-            image: vest,
-            image2: vest,
-            item: 'vest',
-            category: 'women',
-            price: '310'
-        },
-        {
-            id: 6,
-            image: poloHM,
-            image2: poloHM,
-            item: 'women`s polo',
-            category: 'women',
-            price: '355'
-        },
-        {
-            id: 7,
-            image: pantsHM,
-            image2: pantsHM,
-            item: 'women`s pants',
-            category: 'men',
-            price: '360'
-        },
-    ]
-
-    const bmData = [
-        {
-            id: 1,
-            image: '',
-            image2: '',
-            item: 'polo',
-            category: 'men',
-            price: '355'
-        },
-        {
-            id: 2,
-            image: '',
-            image2: '',
-            item: 'pants',
-            category: 'men',
-            price: '360'
-        },
-        {
-            id: 3,
-            image: '',
-            image2: '',
-            item: 'blazer',
-            category: 'men',
-            price: '760'
-        },
-        {
-            id: 4,
-            image: '',
-            image2: '',
-            item: 'chef`s polo',
-            category: 'men',
-            price: '760'
-        },
-        {
-            id: 5,
-            image: '',
-            image2: '',
-            item: 'vest',
-            category: 'men',
-            price: '310'
-        },
-        {
-            id: 6,
-            image: '',
-            image2: '',
-            item: 'women`s polo',
-            category: 'women',
-            price: '355'
-        },
-        {
-            id: 7,
-            image: '',
-            image2: '',
-            item: 'women`s pants',
-            category: 'women',
-            price: '360'
-        },
-    ]
-
     const [itWear, setITWear] = useState(null)
+    const [womenWear, setWomenWear] = useState(null)
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const response = await fetch('https://modiform-api.vercel.app/api/products');
                 const json = await response.json();
-                console.log(json)
+                console.log(json);
                 if (response.ok) {
-                    setITWear(json);
+                    // Assuming 'apparel' is the field indicating whether it's for men or women
+                    const menItems = json.filter(item => item.apparel === 'For Men');
+                    const womenItems = json.filter(item => item.apparel === 'For Women');
+    
+                    setITWear(menItems);
+                    setWomenWear(womenItems);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
-            } 
-        }
-        fetchProducts()
-    }, [])
+            }
+        };
+    
+        fetchProducts();
+    }, []);
+    
     const [category, setCategory] = useState('men')
     
-    
- 
     return (
         <>
             <main className='mt-5 h-100'>
@@ -256,15 +42,24 @@ const CollegeShop = () => {
                         <button className={`text-uppercase rounded-1 px-4 py-1 fs-5 ${ category === 'men' ? 'bg-college text-light' : 'bg-college2' }`} onClick={() => setCategory('men')} > Men </button>
                         <button className={`text-uppercase rounded-1 px-4 py-1 fs-5 ${ category === 'women' ? 'bg-college text-light' : 'bg-college2' }`} onClick={() => setCategory('women')} > Women </button>
                     </div>
-                    <div className='list-section d-flex flex-column py-5 z-0'>
-                        <ItemGallery title={'Information & Communications Technology'} subCategory={'Information Technology'} items={itWear} />
-                        <ItemGallery title={'Tourism Management'} subCategory={'Tourism Management'} items={itWear} />
-                        <ItemGallery title={'Hospitality Management'} subCategory={'Hospitality Management'} items={itWear} />
-                        <ItemGallery title={'Business & Management'} subCategory={'Business Management'} items={itWear} />
-                    </div>
+                    {category === 'men' ? (
+                        <div className='list-section d-flex flex-column py-5 z-0'>
+                            <ItemGallery title={'Information & Communications Technology'} subCategory={'Information Technology'} category={'College'} items={itWear} />
+                            <ItemGallery title={'Tourism Management'} subCategory={'Tourism Management'} category={'College'} items={itWear} />
+                            <ItemGallery title={'Hospitality Management'} subCategory={'Hospitality Management'} category={'College'} items={itWear} />
+                            <ItemGallery title={'Business & Management'} subCategory={'Business Management'} category={'College'} items={itWear} />
+                        </div>
+                    ) : (
+                        <div className='list-section d-flex flex-column py-5 z-0'>
+                            <ItemGallery title={'Information & Communications Technology'} subCategory={'Information Technology'} category={'College'} items={womenWear} />
+                            <ItemGallery title={'Tourism Management'} subCategory={'Tourism Management'} category={'College'} items={womenWear} />
+                            <ItemGallery title={'Hospitality Management'} subCategory={'Hospitality Management'} category={'College'} items={womenWear} />
+                            <ItemGallery title={'Business & Management'} subCategory={'Business Management'} category={'College'} items={womenWear} />
+                        </div>
+                    )}
                 </section>
             </main>
-            <AddToCartModal />
+            
         </>
     )
 }
